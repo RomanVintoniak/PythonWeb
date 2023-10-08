@@ -6,15 +6,14 @@ socket.bind(("127.0.0.1", 5689))
 socket.listen()
 
 conn, addr = socket.accept()
+serverRunning = True
+
 print(f"\nConnected by {addr}\n")
 
-messageFromClient = conn.recv(1024)
-sleep(5)
-
-if len(messageFromClient) == 44:
-    respons = 'All data received successfully'
-else:
-    respons = 'Data transmission error'
-
-conn.send(respons.encode())
-conn.close()
+while serverRunning:
+    messageFromClient = conn.recv(1024).decode()
+    if (messageFromClient == "exit"):
+        serverRunning = False
+        conn.close()
+    else:
+        print(f'[{strftime("%H:%M:%S")}] {messageFromClient}')

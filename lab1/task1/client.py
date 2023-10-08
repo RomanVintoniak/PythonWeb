@@ -2,11 +2,15 @@ import socket
 
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 socket.connect(("127.0.0.1", 5689))
+clientRuning = True
 
-messageToServer = "This is a test message with 44 bytes of data"
-print(f"\n> {messageToServer}")
+print("\nSend something to the server")
 
-socket.send(messageToServer.encode())
-
-messageFromServer = socket.recv(1024).decode()
-print(f"\nReceived from server: {messageFromServer}\n")
+while clientRuning:
+    print("> ", end="")
+    messageToServer = input()
+    socket.send(messageToServer.encode())
+    
+    if (messageToServer == "exit"):
+        clientRuning = False
+        socket.close()
