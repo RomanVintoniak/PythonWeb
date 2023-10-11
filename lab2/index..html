@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>title</title>
+</head>
+<body>
+    <form action="cgi-bin/cgiScript.py" method="POST">
+        <label for="firstName">First name:</label>
+        <input type="text" name="firstName" placeholder="Your first name"><br><br>
+
+        <label for="secondName">Second name:</label>
+        <input type="text" name="secondName" placeholder="Your second name"><br><br>
+
+        <label>Sex:</label>
+        <input type="radio" name="sex" value="male">
+        <label for="male">male</label>
+        <input type="radio" name="sex" value="female">
+        <label for="female">female</label><br><br>
+
+        <label>Your favourite fruits:</label>
+        <input type="checkbox" name="fruits" value="apple">
+        <label for="Apple">Apple</label>
+        <input type="checkbox" name="fruits" value="banana">
+        <label for="Banana">Banana</label>
+        <input type="checkbox" name="fruits" value="mango">
+        <label for="mango">Mango</label>
+        <input type="checkbox" name="fruits" value="kiwi">
+        <label for="kiwi">Kiwi</label><br><br><br>
+
+        <input type="submit" value="Send">
+    </form>
+</body>
+</html>
