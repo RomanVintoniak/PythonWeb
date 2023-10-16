@@ -1,4 +1,133 @@
 {% extends 'base.html' %}
 {% block content %}
+
+    <!-- Photo, Name, Descr -->
+    <div class="container mt-30">
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <img src="{{ url_for('static', filename='images/MyPhoto2.png' ) }}" alt="MyPhoto" class="myPhoto">
+            </div>
+            <div class="col-4">
+                <h1 class="big-title">Roman Vintoniak</h1>
+                <hr>
+                <p>
+                    I'm 20. I communicate freely and study a lot, and I am a process person.
+                    I like to develop Web applications. It is important for me to work in a team.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contacts -->
+    <div class="strip bg-dark mt-50">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-3">
+                    <i class="bi bi-envelope-fill text-primary"></i> romanvintoniak03@gmail.com
+                </div>
+                <div class="col-3">
+                    <i class="bi bi-telephone-fill text-primary"></i> +380631998947
+                </div>
+                <div class="col-3">
+                    <i class="bi bi-telegram text-primary"></i> Roman Vintoniak
+                </div>
+                <div class="col-3">
+                    <i class="bi bi-geo-alt-fill text-primary"></i> Ivano-Frankivsk, Ukraine
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDUCATION | WORK EXPERIENCE | LANGUAGES -->
+    <div class="container mt-80">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="card border-dark mb-3" style="max-width: 20rem;">
+                    <div class="card-body">
+                      <h4 class="card-title">EDUCATION</h4>
+                      <hr>
+                      <p class="card-text">Vasyl Stefanyk Precarpathian National University.</p>
+                      <p class="card-text text-body-tertiary">2021-present</p>
+                    </div>
+                </div>
+            </div>    
+            <div class="col-4">
+                <div class="card border-dark mb-3" style="max-width: 20rem;">
+                    <div class="card-body">
+                      <h4 class="card-title">WORK EXPERIENCE</h4>
+                      <hr>
+                      <p class="card-text">None :(</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card border-dark mb-3" style="max-width: 20rem;">
+                    <div class="card-body">
+                      <h4 class="card-title">LANGUAGES</h4>
+                      <hr>
+                      <ul>
+                        <li><p class="card-text">Ukrainian - Native Speaker</p></li>
+                        <li><p class="card-text">English - B1</p></li>
+                      </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="container mt-80">
+        <h2>Personal projects</h2>
+        <p>
+            - Advertising Manager (in progres) -> 
+            <a href="https://github.com/RomanVintoniak/Advertising-manager">git</a>
+        </p>
+        <p>- Telegram Bot Project</p>
+        <p>- Web Site for the local Hotel</p>
+    </div>
+
+    <!-- Certificats -->
+    <div class="container mt-80">
+        <h2 class="text-center">Сertificates</h2>
+        <table class="table table-hover mt-30">
+            <thead>
+              <tr>
+                <th scope="col">№</th>
+                <th scope="col">Name</th>
+                <th scope="col">Platform</th>
+                <th scope="col">Instractor name</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for item in certificats %}
+                    <tr class="table-dark">
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ item["name"] }}</td>
+                        <td>{{ item["platform"] }}</td>
+                        <td>{{ item["instractorName"] }}</td>
+                        <td>{{ item["date"] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+    <!-- Interests -->
+    <div class="container mt-80">
+        <h2>Interests</h2>
+        <br>
+        <span class="border-primary">
+            My hobbies playing computer games and I like to travel to
+            the mountains and hiking
+        </span><br><br>
+        <span class="border-primary">
+            When I have free time I like to play on piano or guitar
+        </span><br><br>
+        <span class="border-primary">
+            Professional developmen
+        </span>
+    </div>
+    
     
 {% endblock %}

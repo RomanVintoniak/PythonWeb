@@ -1,3 +1,26 @@
 ul a {
     margin-left: 20px;
 }
+
+.myPhoto {
+    width: 220px;
+    height: 220px;
+}
+
+.mt-30{ margin-top: 30px; }
+.mt-50{ margin-top: 50px; }
+.mt-80{ margin-top: 80px; }
+
+.big-title {
+    font-size: 55px;
+}
+
+.strip {
+    width: 100%;
+    padding: 7px 7px;
+}
+
+.border-primary {
+    border: 1px solid;
+    padding: 5px 5px 5px 5px;
+}
