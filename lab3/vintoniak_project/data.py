@@ -4,13 +4,13 @@ certificats = [
         "platform": "Cisco",
         "instractorName": "Mykola Kozlenko",
         "date": "3 Jun 2022",
-        "photoName": "C++"
+        "photoName": "c++.png"
     },
     {
         "name" : "Python and Flask Bootcamp",
         "platform": "Udemy",
         "instractorName": "Jose Portilla",
         "date": "29 Aug 2023",
-        "photoName": "pythonFlak"
+        "photoName": "pythonFlask.jpg"
     }
 ]

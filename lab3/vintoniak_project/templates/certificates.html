@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-50">
+    <h1 class="text-center text-primary">My certificates</h1>
+    <br><br>
+    {% for item in certificats %}
+        <h3>{{ item["name"] }}</h3><br>
+        <img src="../static/images/{{item['photoName']}}" alt="certificat" class="certificates"><br><br>
+        <hr><br>
+    {% endfor %}
+{% endblock %}

@@ -24,3 +24,8 @@ ul a {
     border: 1px solid;
     padding: 5px 5px 5px 5px;
 }
+
+.certificates {
+    width: 650px;
+    height: 450px;
+}
