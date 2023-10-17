@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 class="text-center big-title mt-30">My skills</h1>
+
+    <div class="container mt-50">
+        {% for skill in mySkills %}
+            <h3>
+                <i class="{{ skill['icon'] }}"></i> 
+                <a href="{{ url_for('skills', id=loop.index) }}">{{ skill["skillName"] }}</a>&nbsp;&nbsp; — &nbsp;&nbsp;{{ skill["level"] }}
+            </h3>
+            <br>
+        {% endfor %}
+        <br>
+        <h3>Total number of skills: {{ mySkills.__len__() }}</h3>
+    </div>
+{% endblock %}
