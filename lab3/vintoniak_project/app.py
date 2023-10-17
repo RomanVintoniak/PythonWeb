@@ -1,4 +1,6 @@
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, request
+import os
+from datetime import datetime
 from data import certificats
 app = Flask(__name__)
 
@@ -32,25 +34,37 @@ mySkills = [
 
 @app.route('/')
 def home():
-    return render_template('home.html', certificats=certificats)
+    osInfo = os.environ['OS']
+    agent = request.user_agent
+    time = datetime.now().strftime("%H:%M:%S")
+    
+    return render_template('home.html', certificats=certificats, agent=agent, time=time, osInfo=osInfo)
 
 @app.route('/skills/<int:id>')
 @app.route('/skills')
 def skills(id=None):
+    osInfo = os.environ['OS']
+    agent = request.user_agent
+    time = datetime.now().strftime("%H:%M:%S")
+    
     if id:
         if id > len(mySkills):
             abort(404)
         else:
             index = id - 1
             skill = mySkills[index]
-            return render_template('skill.html', skill=skill, id=id)    
+            return render_template('skill.html', skill=skill, agent=agent, time=time, id=id, osInfo=osInfo)    
     else:
-        return render_template('skills.html', mySkills=mySkills)
+        return render_template('skills.html', mySkills=mySkills, agent=agent, time=time, osInfo=osInfo)
     
     
 @app.route('/certificates')
 def certificates():
-    return render_template('certificates.html', certificats=certificats)
+    osInfo = os.environ['OS']
+    agent = request.user_agent
+    time = datetime.now().strftime("%H:%M:%S")
+    
+    return render_template('certificates.html', certificats=certificats, agent=agent, time=time, osInfo=osInfo)
 
 if __name__ == '__main__':  
     app.run(debug=True)
