@@ -6,7 +6,9 @@
     <br><br>
     {% for item in certificats %}
         <h3>{{ item["name"] }}</h3><br>
-        <img src="../static/images/{{item['photoName']}}" alt="certificat" class="certificates"><br><br>
+        <!--<img src="../static/images/{{item['photoName']}}" alt="certificat" class="certificates"><br><br>-->
+
+        <img src="{{ url_for('static', filename='/'.join(['images', item['photoName']])) }}" alt="certificat" class="certificates"/><br><br>
         <hr><br>
     {% endfor %}
 </div>
