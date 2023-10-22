@@ -1,8 +1,8 @@
-from flask import Flask, render_template, abort, request
 import os
+from flask import render_template, abort, request
+from app import app
 from datetime import datetime
 from data import certificats
-app = Flask(__name__)
 
 mySkills = [
     {
@@ -65,6 +65,3 @@ def certificates():
     time = datetime.now().strftime("%H:%M:%S")
     
     return render_template('certificates.html', certificats=certificats, agent=agent, time=time, osInfo=osInfo)
-
-if __name__ == '__main__':  
-    app.run(debug=True)
