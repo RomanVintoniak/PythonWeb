@@ -1,8 +1,9 @@
-import os
-from flask import render_template, abort, request
+import os, json
+from flask import render_template, abort, request, redirect
 from app import app
 from datetime import datetime
 from data import certificats
+from os.path import join, dirname, realpath
 
 mySkills = [
     {
@@ -65,3 +66,11 @@ def certificates():
     time = datetime.now().strftime("%H:%M:%S")
     
     return render_template('certificates.html', certificats=certificats, agent=agent, time=time, osInfo=osInfo)
+
+@app.route('/login')
+def login():
+    dataJsonPath = join(dirname(realpath(__file__)), 'data.json')
+    with open(dataJsonPath, "r") as f:
+        userData = json.loads(f.read())
+    
+    return render_template('login.html')
