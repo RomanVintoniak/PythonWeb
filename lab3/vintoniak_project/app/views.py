@@ -93,3 +93,9 @@ def info():
         return render_template("info.html", username=username)
     
     return redirect(url_for('login'))
+
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.clear()
+    return redirect(url_for('login'))

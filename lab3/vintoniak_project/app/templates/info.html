@@ -7,7 +7,17 @@
 
     <div class="container">
         <h4>Welcome <strong>{{ username }}</strong></h4>
+
+        <div class="d-flex align-items-center justify-content-start">
+            <div class="mt-3">
+                <form action="{{ url_for('logout') }}" method="POST">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Logout</button>
+                </form>
+            </div>
+        </div>
     </div>
+
+    
 
     <br><br><br><br><br><br><br><br>
 {% endblock %}
