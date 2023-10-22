@@ -99,3 +99,28 @@ def info():
 def logout():
     session.clear()
     return redirect(url_for('login'))
+
+
+@app.route('/changePassword', methods=['GET', 'POST'])
+def changePassword():
+    
+    if request.method == "POST":
+        newPass = request.form.get("newPass")
+        rePass = request.form.get("rePass")
+        username = session.get("username")
+        
+        if newPass == rePass:
+            
+            dataJsonPath = join(dirname(realpath(__file__)), 'data.json')
+            temp = {
+                "username": username,
+                "password": newPass
+            }
+            
+            jsonString = json.dumps(temp, indent=2)
+            with open(dataJsonPath, "w") as f:
+                f.write(jsonString)
+            
+            return redirect(url_for('login'))
+        
+    return redirect(url_for('info'))
