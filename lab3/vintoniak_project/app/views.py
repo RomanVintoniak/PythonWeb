@@ -87,4 +87,9 @@ def login():
 
 @app.route("/info", methods=['GET', 'POST'])
 def info():
-    return render_template("info.html")
+    
+    if session["username"]:
+        username = session.get("username")
+        return render_template("info.html", username=username)
+    
+    return redirect(url_for('login'))
