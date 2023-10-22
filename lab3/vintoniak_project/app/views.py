@@ -1,7 +1,7 @@
 import os, json
-from flask import render_template, abort, request, redirect, session, url_for
+from flask import render_template, abort, request, redirect, session, url_for, make_response
 from app import app
-from datetime import datetime
+from datetime import datetime, timedelta
 from data import certificats
 from os.path import join, dirname, realpath
 
@@ -100,6 +100,16 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
+
+@app.route('/setCookie', methods=["POST"])
+def setCookie():
+    key = request.form.get("key")
+    value = request.form.get("value")
+    days = request.form.get("days")
+    #message = "Cookie successfully set"
+    response = make_response(redirect(url_for('info')))
+    response.set_cookie(key, value, max_age=60*60*24*int(days))
+    return response
 
 @app.route('/changePassword', methods=['GET', 'POST'])
 def changePassword():

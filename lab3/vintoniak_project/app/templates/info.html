@@ -19,6 +19,33 @@
         <br><hr>
     </div>
 
+    <!-- Set Cookie -->
+    <div class="container mt-50">
+        <h4 class="text-center">Set Cookie</h4>
+        <div class="container mt-50">
+            <div class="d-flex align-items-center justify-content-start">
+                <div class="mt-3">
+                    <form action="{{ url_for('setCookie') }}" method="POST">
+                        <div class="form-group">
+                            <label for="key" class="form-label mt-4">Key</label>
+                            <input type="text" class="form-control" id="key" name="key"  placeholder="Key">
+                            <label for="value" class="form-label mt-4">Value</label>
+                            <input type="text" class="form-control" id="value" name="value" placeholder="Value">
+                        </div>
+                        <div class="form-group">
+                            <label for="days" class="form-label mt-4">Expiry time (in days)</label>
+                            <input type="number" class="form-control" id="days" name="days" placeholder="1">                            
+                        </div>
+                        <br><br>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Set cookie</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><hr>
+
+    <!-- Change password -->
     <div class="container mt-50">
         <h4 class="text-center">Change password</h4>
         <div class="d-flex align-items-center justify-content-start">
