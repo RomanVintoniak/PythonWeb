@@ -1,5 +1,5 @@
 import os, json
-from flask import render_template, abort, request, redirect
+from flask import render_template, abort, request, redirect, session, url_for
 from app import app
 from datetime import datetime
 from data import certificats
@@ -67,10 +67,24 @@ def certificates():
     
     return render_template('certificates.html', certificats=certificats, agent=agent, time=time, osInfo=osInfo)
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    dataJsonPath = join(dirname(realpath(__file__)), 'data.json')
-    with open(dataJsonPath, "r") as f:
-        userData = json.loads(f.read())
+    
+    if request.method == "POST":
+        inputtedUsername = request.form.get("username")
+        inputtedPassword = request.form.get("password")
+    
+        dataJsonPath = join(dirname(realpath(__file__)), 'data.json')
+        with open(dataJsonPath, "r") as f:
+            userData = json.loads(f.read())
+        
+        if (inputtedUsername == userData["username"] and inputtedPassword == userData["password"]):
+            session["username"] = inputtedUsername
+            return redirect(url_for('info'))
     
     return render_template('login.html')
+
+
+@app.route("/info", methods=['GET', 'POST'])
+def info():
+    return render_template("info.html")

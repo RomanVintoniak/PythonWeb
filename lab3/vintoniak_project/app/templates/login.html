@@ -10,11 +10,11 @@
             <form method="POST">
                 <div class="form-group">
                     <label for="username" class="form-label mt-4">Username</label>
-                    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username">
+                    <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Username">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" autocomplete="off">
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" autocomplete="off">
                 </div>
                 <br><br>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Submit</button>
@@ -22,6 +22,8 @@
         </div>
     </div>
 
+    <br><br>
+    {{ username }}
     <br><br><br><br><br><br><br><br><br>
 
 {% endblock %}
