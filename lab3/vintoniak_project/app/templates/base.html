@@ -1,3 +1,8 @@
+{% set menu = {
+  "Skills": url_for('skills'),
+  "Certificates": url_for('certificates')
+} %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,12 +22,11 @@
           <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
           <div class="collapse navbar-collapse flex-grow-0" id="navbarColor01">
             <ul class="navbar-nav">
+              {% for name, url in menu.items() %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('skills') }}">Skills</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('certificates') }}">Certificates</a>
-                </li>
+                  <a class="nav-link" href="{{ url }}">{{ name }}</a>
+                </li>    
+              {% endfor %}
             </ul>
           </div>
         </div>
