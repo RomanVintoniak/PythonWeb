@@ -90,7 +90,10 @@ def info():
     
     if session["username"]:
         username = session.get("username")
-        return render_template("info.html", username=username)
+        
+        cookies = request.cookies
+            
+        return render_template("info.html", username=username, cookies=cookies)
     
     return redirect(url_for('login'))
 

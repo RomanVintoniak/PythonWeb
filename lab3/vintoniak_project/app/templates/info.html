@@ -68,6 +68,30 @@
     </div>
     <br><hr>
 
+    <!-- Cookies table -->
+    <div class="container mt-50">
+        <h4 class="text-center">Cookies</h4>
+        <table class="table table-hover mt-30">
+            <thead>
+              <tr>
+                <th scope="col">№</th>
+                <th scope="col">Key</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for key, value in cookies.items() %}
+                    <tr class="table-dark">
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ key }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    <br><hr>
+
     <!-- Change password -->
     <div class="container mt-50">
         <h4 class="text-center">Change password</h4>
