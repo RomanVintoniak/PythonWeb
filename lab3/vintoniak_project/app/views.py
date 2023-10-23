@@ -111,6 +111,27 @@ def setCookie():
     response.set_cookie(key, value, max_age=60*60*24*int(days))
     return response
 
+
+@app.route("/deleteCookieByKey", methods=["POST"])
+def deleteCookieByKey():
+    key = request.form.get("key")
+    response = make_response(redirect(url_for('info')))
+    response.delete_cookie(key)
+    return response
+
+
+@app.route("/deleteCookieAll", methods=["POST"])
+def deleteCookieAll():
+    cookiesKeys = request.cookies
+    response = make_response(redirect(url_for('info')))
+    
+    for key, value in cookiesKeys.items():
+        if key != "session":
+            response.delete_cookie(key)
+        
+    return response
+    
+
 @app.route('/changePassword', methods=['GET', 'POST'])
 def changePassword():
     
