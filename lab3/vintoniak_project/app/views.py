@@ -35,7 +35,7 @@ mySkills = [
 
 @app.route('/')
 def home():
-    osInfo = os.environ['OS']
+    osInfo = os.environ.get('OS')
     agent = request.user_agent
     time = datetime.now().strftime("%H:%M:%S")
     
@@ -44,7 +44,7 @@ def home():
 @app.route('/skills/<int:id>')
 @app.route('/skills')
 def skills(id=None):
-    osInfo = os.environ['OS']
+    osInfo = os.environ.get('OS')
     agent = request.user_agent
     time = datetime.now().strftime("%H:%M:%S")
     
@@ -61,7 +61,7 @@ def skills(id=None):
     
 @app.route('/certificates')
 def certificates():
-    osInfo = os.environ['OS']
+    osInfo = os.environ.get('OS')
     agent = request.user_agent
     time = datetime.now().strftime("%H:%M:%S")
     
