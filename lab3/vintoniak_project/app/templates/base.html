@@ -33,6 +33,13 @@
         </div>
     </nav>
     
+    {% for category, message in get_flashed_messages(True) %}
+      <div class="alert alert-dismissible alert-{{category}} opacity-05">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>{{ message }}</strong>
+      </div>
+    {% endfor %}
+
     {% block content %}
         
     {% endblock %}
