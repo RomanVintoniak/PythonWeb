@@ -9,6 +9,7 @@
     <div class="d-flex align-items-center justify-content-center">
         <div class="mt-3">
             <form method="POST" novalidate>
+                {{ form.csrf_token }}
                 {{ displayField(form.username, "Username") }}
                 {{ displayField(form.password, "Password") }}
                 
