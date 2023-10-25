@@ -1,0 +1,22 @@
+{% macro displayField(field, placeholderValue) %}
+
+    {% if field.errors %}
+        <div class="form-group">
+            {{ field.label(class="mt-3") }}
+            {{ field(class='form-control is-invalid mt-2', placeholder=placeholderValue, **kwargs) }}
+            
+            <!-- Error messages -->
+            <ul>
+                {% for error in field.errors %}
+                    <li class="text-danger mt-1">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>    
+    {% else %}
+        <div class="form-group">
+            {{ field.label(class="mt-3") }}
+            {{ field(class='form-control mt-2', placeholder=placeholderValue, **kwargs) }}
+        </div>
+    {% endif %}
+    
+{% endmacro %}

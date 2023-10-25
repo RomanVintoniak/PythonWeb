@@ -1,5 +1,6 @@
 import os, json
 from flask import render_template, abort, request, redirect, session, url_for, make_response
+from .form import LoginForm
 from app import app
 from datetime import datetime, timedelta
 from data import certificats
@@ -69,7 +70,12 @@ def certificates():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    form = LoginForm()
     
+    if form.validate_on_submit():
+        pass
+    
+
     if request.method == "POST":
         inputtedUsername = request.form.get("username")
         inputtedPassword = request.form.get("password")
@@ -82,7 +88,7 @@ def login():
             session["username"] = inputtedUsername
             return redirect(url_for('info'))
     
-    return render_template('login.html')
+    return render_template('login.html', form=form)
 
 
 @app.route("/info", methods=['GET', 'POST'])
