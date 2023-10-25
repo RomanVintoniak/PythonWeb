@@ -1,5 +1,5 @@
 import os, json
-from flask import render_template, abort, request, redirect, session, url_for, make_response
+from flask import render_template, abort, request, redirect, session, url_for, make_response, flash
 from .form import LoginForm
 from app import app
 from datetime import datetime, timedelta
@@ -72,21 +72,24 @@ def certificates():
 def login():
     form = LoginForm()
     
-    if form.validate_on_submit():
-        pass
-    
-
     if request.method == "POST":
-        inputtedUsername = request.form.get("username")
-        inputtedPassword = request.form.get("password")
+        if form.validate_on_submit():
+            inputtedUsername = form.username.data
+            inputtedPassword = form.password.data
     
-        dataJsonPath = join(dirname(realpath(__file__)), 'data.json')
-        with open(dataJsonPath, "r") as f:
-            userData = json.loads(f.read())
+            dataJsonPath = join(dirname(realpath(__file__)), 'data.json')
+            with open(dataJsonPath, "r") as f:
+                userData = json.loads(f.read())
         
-        if (inputtedUsername == userData["username"] and inputtedPassword == userData["password"]):
-            session["username"] = inputtedUsername
-            return redirect(url_for('info'))
+            if (inputtedUsername == userData["username"] and inputtedPassword == userData["password"]):
+                if form.rememberMe.data == True:
+                    session["username"] = inputtedUsername
+                    flash("Login Succesful", "success")
+                return redirect(url_for('info'))
+            else:
+                flash("Incorrect username or password", "danger")
+                return redirect(url_for('login'))
+        
     
     return render_template('login.html', form=form)
 
@@ -94,14 +97,13 @@ def login():
 @app.route("/info", methods=['GET', 'POST'])
 def info():
     
-    if session["username"]:
-        username = session.get("username")
-        
-        cookies = request.cookies
-            
-        return render_template("info.html", username=username, cookies=cookies)
+    if not session.get("username"):
+        flash("Please check the box 'remember me'", "danger")
+        return redirect(url_for('login'))
     
-    return redirect(url_for('login'))
+    username = session.get("username")
+    cookies = request.cookies
+    return render_template("info.html", username=username, cookies=cookies)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
