@@ -70,26 +70,29 @@ def certificates():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if session.get('username'):
+        return redirect(url_for('info'))
+    
     form = LoginForm()
     
-    if request.method == "POST":
-        if form.validate_on_submit():
-            inputtedUsername = form.username.data
-            inputtedPassword = form.password.data
+    if form.validate_on_submit():
+        inputtedUsername = form.username.data
+        inputtedPassword = form.password.data
+        
+        dataJsonPath = join(dirname(realpath(__file__)), 'data.json')
+        with open(dataJsonPath, "r", encoding="utf-8") as f:
+            userData = json.loads(f.read())
     
-            dataJsonPath = join(dirname(realpath(__file__)), 'data.json')
-            with open(dataJsonPath, "r") as f:
-                userData = json.loads(f.read())
-        
-            if (inputtedUsername == userData["username"] and inputtedPassword == userData["password"]):
-                if form.rememberMe.data == True:
-                    session["username"] = inputtedUsername
-                    flash("Login Succesful", "success")
+        if (inputtedUsername == userData.get('username') and inputtedPassword == userData.get("password")):
+            if form.rememberMe.data:
+                session["username"] = inputtedUsername
+                flash("Login Succesful", "success")
                 return redirect(url_for('info'))
-            else:
-                flash("Incorrect username or password", "danger")
-                return redirect(url_for('login'))
+            flash("Login Succesful to home", "success")
+            return redirect(url_for('home'))
         
+        flash("Incorrect username or password", "danger")
+        return redirect(url_for('login'))
     
     return render_template('login.html', form=form)
 
@@ -109,6 +112,7 @@ def info():
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.clear()
+    flash("You are logged out", "success")
     return redirect(url_for('login'))
 
 
@@ -120,6 +124,7 @@ def setCookie():
     #message = "Cookie successfully set"
     response = make_response(redirect(url_for('info')))
     response.set_cookie(key, value, max_age=60*60*24*int(days))
+    flash("Cookie set successfully", "success")
     return response
 
 
@@ -127,7 +132,8 @@ def setCookie():
 def deleteCookieByKey():
     key = request.form.get("key")
     response = make_response(redirect(url_for('info')))
-    response.delete_cookie(key)
+    response.delete_cookie(key) 
+    flash("Cookie deleted by key successfully", "success")
     return response
 
 
@@ -139,7 +145,7 @@ def deleteCookieAll():
     for key, value in cookiesKeys.items():
         if key != "session":
             response.delete_cookie(key)
-        
+    flash("Cookie deleted successfully", "success")    
     return response
     
 
@@ -163,6 +169,8 @@ def changePassword():
             with open(dataJsonPath, "w") as f:
                 f.write(jsonString)
             
+            flash("Password changed successfully", "success")
             return redirect(url_for('login'))
         
+    flash("Passwords do not match", "danger")    
     return redirect(url_for('info'))

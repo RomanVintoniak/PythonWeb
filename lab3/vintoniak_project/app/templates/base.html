@@ -1,9 +1,3 @@
-{% set menu = {
-  "Skills": url_for('skills'),
-  "Certificates": url_for('certificates'),
-  "Login": url_for('login')
-} %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,64 +7,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <title>{% block title %}title{% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-        <div class="container justify-content-center">
-          <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
-          <div class="collapse navbar-collapse flex-grow-0" id="navbarColor01">
-            <ul class="navbar-nav">
-              {% for name, url in menu.items() %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ url }}">{{ name }}</a>
-                </li>    
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-    </nav>
+  {% include 'navbar.html' %}
     
-    {% for category, message in get_flashed_messages(True) %}
-      <div class="alert alert-dismissible alert-{{category}} opacity-05">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>{{ message }}</strong>
-      </div>
-    {% endfor %}
+  {% for category, message in get_flashed_messages(True) %}
+    <div class="alert alert-dismissible alert-{{category}} opacity-05">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>{{ message }}</strong>
+    </div>
+  {% endfor %}
 
-    {% block content %}
-        
-    {% endblock %}
+  {% block content %}
+      
+  {% endblock %}
 
-    <section class="mt-80">
-        <footer class="bg-dark text-light text-center text-md-start">
-          <div class="container p-4">
-            <div class="row">
-              <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 class="">Info about user_agent:</h5>      
-                <p>
-                  {{ agent }} 
-                  <br><br>
-                  Current tine: {{ time }}
-                </p>
-              </div>
-
-              <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 class="">Info about operating system:</h5>      
-                <p>
-                  {{ osInfo }} 
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="text-center p-3 bg-primary text-black">
-            © 2023 Copyright
-          </div>
-        </footer>
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  {% include 'footer.html' %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
