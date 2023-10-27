@@ -45,9 +45,6 @@ def home():
 @app.route('/skills/<int:id>')
 @app.route('/skills')
 def skills(id=None):
-    osInfo = os.environ.get('OS')
-    agent = request.user_agent
-    time = datetime.now().strftime("%H:%M:%S")
     
     if id:
         if id > len(mySkills):
@@ -55,9 +52,9 @@ def skills(id=None):
         else:
             index = id - 1
             skill = mySkills[index]
-            return render_template('skill.html', skill=skill, agent=agent, time=time, id=id, osInfo=osInfo)    
+            return render_template('skill.html', skill=skill, id=id)    
     else:
-        return render_template('skills.html', mySkills=mySkills, agent=agent, time=time, osInfo=osInfo)
+        return render_template('skills.html', mySkills=mySkills)
     
     
 @app.route('/certificates')
@@ -66,7 +63,7 @@ def certificates():
     agent = request.user_agent
     time = datetime.now().strftime("%H:%M:%S")
     
-    return render_template('certificates.html', certificats=certificats, agent=agent, time=time, osInfo=osInfo)
+    return render_template('certificates.html', certificats=certificats)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
