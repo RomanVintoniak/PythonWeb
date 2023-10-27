@@ -7,3 +7,8 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired("This field is required"), Length(min=4, max=10)])
     rememberMe = BooleanField("Remember me")
     submit = SubmitField("Log in")
+
+class ChangePasswordForm(FlaskForm):
+    password = PasswordField("Enter new password", validators=[DataRequired("This field is required"), Length(min=4, max=10)])
+    repassword = PasswordField("Enter new password again", validators=[DataRequired("This field is required"), Length(min=4, max=10)])
+    submit = SubmitField("Change")

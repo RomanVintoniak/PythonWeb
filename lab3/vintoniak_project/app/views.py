@@ -1,6 +1,6 @@
 import os, json
 from flask import render_template, abort, request, redirect, session, url_for, make_response, flash
-from .form import LoginForm
+from .form import LoginForm, ChangePasswordForm
 from app import app
 from datetime import datetime, timedelta
 from data import certificats
@@ -99,6 +99,7 @@ def login():
 
 @app.route("/info", methods=['GET', 'POST'])
 def info():
+    changePasswordForm = ChangePasswordForm()
     
     if not session.get("username"):
         flash("Please check the box 'remember me'", "danger")
@@ -106,7 +107,7 @@ def info():
     
     username = session.get("username")
     cookies = request.cookies
-    return render_template("info.html", username=username, cookies=cookies)
+    return render_template("info.html", username=username, cookies=cookies, changePasswordForm=changePasswordForm)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -151,10 +152,11 @@ def deleteCookieAll():
 
 @app.route('/changePassword', methods=['GET', 'POST'])
 def changePassword():
+    changePasswordForm = ChangePasswordForm()
     
-    if request.method == "POST":
-        newPass = request.form.get("newPass")
-        rePass = request.form.get("rePass")
+    if changePasswordForm.validate_on_submit():
+        newPass = changePasswordForm.password.data
+        rePass = changePasswordForm.repassword.data
         username = session.get("username")
         
         if newPass == rePass:
@@ -174,3 +176,4 @@ def changePassword():
         
     flash("Passwords do not match", "danger")    
     return redirect(url_for('info'))
+    
