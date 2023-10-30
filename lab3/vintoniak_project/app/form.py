@@ -12,3 +12,7 @@ class ChangePasswordForm(FlaskForm):
     password = PasswordField("Enter new password", validators=[DataRequired("This field is required"), Length(min=4, max=10)])
     repassword = PasswordField("Enter new password again", validators=[DataRequired("This field is required"), Length(min=4, max=10)])
     submit = SubmitField("Change")
+    
+class AddTodoItemForm(FlaskForm):
+    title = StringField("Enter a task here", validators=[DataRequired("This field is required")])
+    submit = SubmitField("Save")

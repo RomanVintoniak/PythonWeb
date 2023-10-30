@@ -1,6 +1,6 @@
 import os, json
 from flask import render_template, abort, request, redirect, session, url_for, make_response, flash
-from .form import LoginForm, ChangePasswordForm
+from .form import LoginForm, ChangePasswordForm, AddTodoItemForm
 from app import app
 from datetime import datetime, timedelta
 from data import certificats
@@ -177,4 +177,5 @@ def changePassword():
 
 @app.route('/todo')
 def todo():
-    return render_template('todo.html')
+    form = AddTodoItemForm()
+    return render_template('todo.html', form=form)

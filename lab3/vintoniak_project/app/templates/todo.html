@@ -1,7 +1,31 @@
 {% extends 'base.html' %}
 {% block title %}Todo{% endblock %}
 {% block content %}
-    <div class="container">
-        <h1>This is Todo page</h1>
+  <div class="container">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-9 col-xl-7">
+          <div class="card rounded-3">
+            <div class="card-body p-4">
+
+              <h4 class="text-center my-3 pb-3">Your To Do list</h4>
+
+              <form class="row" action="" method="POST">
+                <div class="col-4">
+                  {{ form.hidden_tag() }}
+                  <div class="form-outline">
+                    {{ form.title(class="form-control", placeholder="Enter a task here") }}
+                  </div>
+                </div>
+                <div class="col-6">
+                  {{ form.submit(class="btn btn-primary") }}
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 {% endblock %}
