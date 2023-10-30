@@ -33,3 +33,8 @@ ul a {
     width: 650px;
     height: 450px;
 }
+
+.completed {
+    background-color: rgb(138, 176, 145);
+    border-color: rgb(138, 176, 145);
+}

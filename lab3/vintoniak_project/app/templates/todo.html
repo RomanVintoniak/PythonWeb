@@ -42,12 +42,12 @@
                         {% if todo.complete == False %}
                           <li class="list-group-item list-group-item-dark">In progress</li>
                         {% else %}
-                          <li class="list-group-item list-group-item-success">Completed</li>
+                          <li class="list-group-item list-group-item-success completed">Completed</li>
                         {% endif %}
                       </ul>
                     </td>
                     <td>
-                      <a class="btn btn-success" href="">Update</a>
+                      <a class="btn btn-success" href="{{ url_for('update', id=todo.id) }}">Update</a>
                       <a class="btn btn-danger ms-1" href="{{ url_for('delete', id=todo.id) }}">Delete</a>
                     </td>
                   </tr>
