@@ -1,7 +1,8 @@
 import os, json
 from flask import render_template, abort, request, redirect, session, url_for, make_response, flash
 from .form import LoginForm, ChangePasswordForm, AddTodoItemForm
-from app import app
+from app import app, db
+from app.models import Todo
 from datetime import datetime, timedelta
 from data import certificats
 from os.path import join, dirname, realpath
@@ -175,7 +176,21 @@ def changePassword():
     return redirect(url_for('info'))
     
 
-@app.route('/todo')
+@app.route('/todo', methods=["GET", "POST"])
 def todo():
     form = AddTodoItemForm()
-    return render_template('todo.html', form=form)
+    todo_list = Todo.query.all()
+    return render_template('todo.html', form=form, todo_list=todo_list)
+
+
+@app.route('/todo/add', methods=["POST"])
+def add():
+    form = AddTodoItemForm()
+    
+    if form.validate_on_submit():
+        title = form.title.data
+        todoItem = Todo(title=title, complete=False)
+        db.session.add(todoItem)
+        db.session.commit()
+        
+    return redirect(url_for("todo"))

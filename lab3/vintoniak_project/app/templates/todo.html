@@ -1,31 +1,64 @@
 {% extends 'base.html' %}
 {% block title %}Todo{% endblock %}
 {% block content %}
-  <div class="container">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-lg-9 col-xl-7">
-          <div class="card rounded-3">
-            <div class="card-body p-4">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-9 col-xl-7">
+        <div class="card rounded-3">
+          <div class="card-body p-4">
 
-              <h4 class="text-center my-3 pb-3">Your To Do list</h4>
-
-              <form class="row" action="" method="POST">
-                <div class="col-4">
-                  {{ form.hidden_tag() }}
-                  <div class="form-outline">
-                    {{ form.title(class="form-control", placeholder="Enter a task here") }}
-                  </div>
+            <h3 class="text-center my-3 pb-3">Your To Do list</h3>
+            <br>
+            <form class="row" action="{{ url_for('add') }}" method="POST">
+              <div class="col-4">
+                {{ form.hidden_tag() }}
+                <div class="form-outline">
+                  {{ form.title(class="form-control", placeholder="Enter a task here") }}
                 </div>
-                <div class="col-6">
-                  {{ form.submit(class="btn btn-primary") }}
-                </div>
-              </form>
+              </div>
+              <div class="col-6">
+                {{ form.submit(class="btn btn-primary") }}
+              </div>
+            </form>
 
-            </div>
+            <br><br>
+            
+            <table class="table mb-4">
+              <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for todo in todo_list %}
+                  <tr class="table-dark">
+                    <th scope="row">{{todo.id }}</th>
+                    <td>{{ todo.title }}</td>
+                    <td>
+                      <ul class="list-group">
+                        {% if todo.complete == False %}
+                          <li class="list-group-item list-group-item-dark">In progress</li>
+                        {% else %}
+                          <li class="list-group-item list-group-item-success">Completed</li>
+                        {% endif %}
+                      </ul>
+                    </td>
+                    <td>
+                      <a class="btn btn-success" href="">Update</a>
+                      <a class="btn btn-danger ms-1" href="">Delete</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+
           </div>
         </div>
       </div>
     </div>
   </div>
+
 {% endblock %}
