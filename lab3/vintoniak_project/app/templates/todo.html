@@ -10,13 +10,18 @@
             <h3 class="text-center my-3 pb-3">Your To Do list</h3>
             <br>
             <form class="row" action="{{ url_for('add') }}" method="POST">
-              <div class="col-4">
-                {{ form.hidden_tag() }}
+              {{ form.hidden_tag() }}
+              <div class="col-5">
                 <div class="form-outline">
                   {{ form.title(class="form-control", placeholder="Enter a task here") }}
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-5">
+                <div class="form-outline">
+                  {{ form.description(class="form-control", placeholder="Enter description here") }}
+                </div>
+              </div>
+              <div class="col-2">
                 {{ form.submit(class="btn btn-primary") }}
               </div>
             </form>
@@ -28,6 +33,7 @@
                   <tr>
                     <th scope="col">No.</th>
                     <th scope="col">Title</th>
+                    <th scope="col">Description</th>
                     <th scope="col">Status</th>
                     <th scope="col">Actions</th>
                   </tr>
@@ -37,6 +43,7 @@
                   <tr class="table-dark">
                     <th scope="row">{{ todo.id }}</th>
                     <td>{{ todo.title }}</td>
+                    <td>{{ todo.description }}</td>
                     <td>
                       <ul class="list-group">
                         {% if todo.complete == False %}

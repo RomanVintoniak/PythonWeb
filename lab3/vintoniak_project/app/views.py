@@ -189,7 +189,8 @@ def add():
     
     if form.validate_on_submit():
         title = form.title.data
-        todoItem = Todo(title=title, complete=False)
+        description = form.description.data
+        todoItem = Todo(title=title, description=description, complete=False)
         db.session.add(todoItem)
         db.session.commit()
         
