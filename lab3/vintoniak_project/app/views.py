@@ -194,3 +194,12 @@ def add():
         db.session.commit()
         
     return redirect(url_for("todo"))
+
+
+@app.route('/todo/delete/<int:id>')
+def delete(id):
+    todoItem = Todo.query.filter_by(id=id).first_or_404()
+    db.session.delete(todoItem)
+    db.session.commit()
+    return redirect(url_for('todo'))
+    

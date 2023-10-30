@@ -35,7 +35,7 @@
               <tbody>
                   {% for todo in todo_list %}
                   <tr class="table-dark">
-                    <th scope="row">{{todo.id }}</th>
+                    <th scope="row">{{ todo.id }}</th>
                     <td>{{ todo.title }}</td>
                     <td>
                       <ul class="list-group">
@@ -48,7 +48,7 @@
                     </td>
                     <td>
                       <a class="btn btn-success" href="">Update</a>
-                      <a class="btn btn-danger ms-1" href="">Delete</a>
+                      <a class="btn btn-danger ms-1" href="{{ url_for('delete', id=todo.id) }}">Delete</a>
                     </td>
                   </tr>
                   {% endfor %}
