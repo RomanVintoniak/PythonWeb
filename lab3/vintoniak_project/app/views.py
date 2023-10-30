@@ -174,3 +174,7 @@ def changePassword():
     flash("Passwords do not match", "danger")    
     return redirect(url_for('info'))
     
+
+@app.route('/todo')
+def todo():
+    return render_template('todo.html')
