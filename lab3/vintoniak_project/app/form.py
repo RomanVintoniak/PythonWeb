@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, Email
 
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired("This field is required")])
@@ -17,3 +17,10 @@ class AddTodoItemForm(FlaskForm):
     title = StringField("Enter a task here", validators=[DataRequired("This field is required")])
     description = StringField("Enter description here", validators=[DataRequired("This field is required")])
     submit = SubmitField("Save")
+    
+class AddReview(FlaskForm):
+    username = StringField("Enter username", validators=[DataRequired("This field is required")])
+    email = StringField("Enter email", validators=[DataRequired("This field is required"), Email("Enter email !")])
+    content = StringField("Eenter content", validators=[DataRequired("This field is required")])
+    submit = SubmitField("Add")
+    

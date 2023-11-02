@@ -212,3 +212,6 @@ def update(id):
     db.session.commit()
     return redirect(url_for('todo'))
     
+@app.route("/reviews")
+def reviews():
+    return render_template("reviews.html")
