@@ -16,14 +16,23 @@
                 </form>
             </div>
         </div>
-        <br><br>
+        
+        <br><br><br><br>
 
         {% for review in reviews_list %}
-            <h4> 
-                {{ review.id }} | {{ review.username }} | {{ review.email }} | {{ review.content }} | {{ review.createdAt.strftime("%m/%d/%Y, %H:%M:%S") }}
-                <a class="btn btn-danger ms-1" href="{{ url_for('deleteReview', id=review.id) }}">Delete</a>
-            </h4>
+            <div class="list-group">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ review.username }} | {{ review.email }}</h5>
+                        <a href="{{ url_for('deleteReview', id=review.id) }}">
+                            <i class="bi bi-trash3-fill text-danger"></i>
+                        </a>
+                </div>
+                <h4 class="mb-1 mt-10"><strong>{{ review.content }}</strong></h4>
+                <small class="text-muted mt-30">{{ review.createdAt.strftime("%m/%d/%Y, %H:%M:%S") }}</small>
+            </div>
+            <br><hr><br>
         {% endfor %}
+        
     </div>
     <br><br>
     
