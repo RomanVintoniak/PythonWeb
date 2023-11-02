@@ -21,7 +21,7 @@
         {% for review in reviews_list %}
             <h4> 
                 {{ review.id }} | {{ review.username }} | {{ review.email }} | {{ review.content }} | {{ review.createdAt.strftime("%m/%d/%Y, %H:%M:%S") }}
-                <a class="btn btn-danger ms-1" href="#">Delete</a>
+                <a class="btn btn-danger ms-1" href="{{ url_for('deleteReview', id=review.id) }}">Delete</a>
             </h4>
         {% endfor %}
     </div>

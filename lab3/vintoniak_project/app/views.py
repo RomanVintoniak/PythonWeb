@@ -239,3 +239,12 @@ def addRevie():
         flash("Revie add successfully", "success")
         
     return redirect(url_for("reviews"))
+
+
+@app.route('/reviews/delete/<int:id>')
+def deleteReview(id):
+    review = Review.query.filter_by(id=id).first_or_404()
+    db.session.delete(review)
+    db.session.commit()
+    flash("Revie deleted successfully", "success")
+    return redirect(url_for('reviews'))
