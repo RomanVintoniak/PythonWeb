@@ -1,8 +1,30 @@
+{% from 'fieldMacro.html' import displayField %}
 {% extends 'base.html' %}
 {% block title %}Reviews{% endblock %}
 
 {% block content %}
     <div class="container">
-        
+        <div class="d-flex align-items-center justify-content-start">
+            <div class="mt-3">
+                <form action="{{ url_for('addRevie') }}" method="POST" novalidate>
+                    {{ form.csrf_token }}
+                    {{ displayField(form.username, "Username") }}
+                    {{ displayField(form.email, "Email") }}
+                    {{ displayField(form.content, "Content") }}
+                    <br>
+                    {{ form.submit(class="btn btn-primary width-100") }}
+                </form>
+            </div>
+        </div>
+        <br><br>
+
+        {% for review in reviews_list %}
+            <h4> 
+                {{ review.id }} | {{ review.username }} | {{ review.email }} | {{ review.content }} | {{ review.createdAt.strftime("%m/%d/%Y, %H:%M:%S") }}
+                <a class="btn btn-danger ms-1" href="#">Delete</a>
+            </h4>
+        {% endfor %}
     </div>
+    <br><br>
+    
 {% endblock %}

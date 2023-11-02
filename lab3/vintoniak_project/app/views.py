@@ -1,8 +1,8 @@
 import os, json
 from flask import render_template, abort, request, redirect, session, url_for, make_response, flash
-from .form import LoginForm, ChangePasswordForm, AddTodoItemForm
+from .form import LoginForm, ChangePasswordForm, AddTodoItemForm, AddReview
 from app import app, db
-from app.models import Todo
+from app.models import Todo, Review
 from datetime import datetime, timedelta
 from data import certificats
 from os.path import join, dirname, realpath
@@ -211,7 +211,31 @@ def update(id):
     todoItem.complete = not todoItem.complete
     db.session.commit()
     return redirect(url_for('todo'))
+
+
+
     
-@app.route("/reviews")
+@app.route("/reviews", methods=["GET", "POST"])
 def reviews():
-    return render_template("reviews.html")
+    form = AddReview()
+    reviews_list = Review.query.all()
+    return render_template("reviews.html", form = form, reviews_list=reviews_list)
+
+
+@app.route("/reviews/add", methods=["POST"])
+def addRevie():
+    form = AddReview()
+    
+    if form.validate_on_submit():
+        username = form.username.data
+        email = form.email.data
+        content = form.content.data
+        
+        review = Review(username, email, content)
+        
+        db.session.add(review)
+        db.session.commit()
+        
+        flash("Revie add successfully", "success")
+        
+    return redirect(url_for("reviews"))
