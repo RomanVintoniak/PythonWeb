@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Users List{% endblock %}
+{% block content %}
+    <div class="container mt-80">
+        {% if users.__len__() == 0 %}
+            <h2 class="text-center text-white">There are no registered users</h2>
+        {% else %}
+            <h3 class="text-center text-white">Number of registered users - {{ users.__len__() }}</h3>
+            <br>
+            <table class="table table-hover mt-30">
+                <thead>
+                    <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr class="table-dark text-body-tertiary">
+                            <th scope="row">{{ loop.index }}</th>
+                            <td><img src="{{ url_for('static', filename='images/' + user.image) }}" alt="Photo" class="usersSmallPhoto"></td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.password[-10:] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

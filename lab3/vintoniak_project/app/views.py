@@ -265,3 +265,9 @@ def deleteReview(id):
     db.session.commit()
     flash("Revie deleted successfully", "success")
     return redirect(url_for('reviews'))
+
+
+@app.route('/users')
+def users():
+    users = User.query.all()
+    return render_template("users.html", users=users)
