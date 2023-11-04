@@ -99,7 +99,7 @@ def login():
 def registration():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash("Account created for {form.username.data} !", "success")
+        flash(f"Account created for {form.username.data} !", "success")
         return redirect(url_for('login'))
     return render_template("registration.html", form=form)
 
