@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from .models import User
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, TextAreaField, EmailField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
 
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired("This field is required"), Email("Please enter your email address")])
@@ -10,7 +10,10 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Log in")
     
 class RegistrationForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired("This field is required"), Length(min=4, max=10)])
+    username = StringField("Username", validators=[DataRequired("This field is required"), 
+                                                   Length(min=4, max=10),
+                                                   Regexp('^[A-Za-z][a-zA-Z0-9._]+$', 0,
+                                                            "username must have only letters, numbers, dots or underscores")])
     email = EmailField("Email", validators=[DataRequired("This field is required"), Email("Please enter your email address")])
     password = PasswordField("Password", validators=[DataRequired("This field is required"), Length(min=6)])
     confirmPassword = PasswordField("Confirm password", validators=[DataRequired("This field is required"), EqualTo("password", "Passwords do not match")])
