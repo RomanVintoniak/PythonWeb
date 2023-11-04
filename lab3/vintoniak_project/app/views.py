@@ -79,7 +79,7 @@ def login():
         
         user = User.query.filter_by(email=inputtedEmail).first()
     
-        if (inputtedEmail == user.email and inputtedPassword == user.password):
+        if (inputtedEmail == user.email and user.checkPassword(inputtedPassword)):
             if form.rememberMe.data:
                 session["username"] = user.username
                 flash("Login Succesful", "success")

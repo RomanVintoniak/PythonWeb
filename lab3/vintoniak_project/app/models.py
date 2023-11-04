@@ -1,5 +1,6 @@
 from app import db
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Todo(db.Model):
@@ -36,7 +37,10 @@ class User(db.Model):
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
-        self.password = password
+        self.password = generate_password_hash(password)
     
     def __repr__(self):
         return f"{self.id} -- {self.username} -- {self.email}"
+    
+    def checkPassword(self, pwd):
+        return check_password_hash(self.password, pwd)
