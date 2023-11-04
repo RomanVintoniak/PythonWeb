@@ -2,7 +2,7 @@ import os, json
 from flask import render_template, abort, request, redirect, session, url_for, make_response, flash
 from .form import LoginForm, ChangePasswordForm, AddTodoItemForm, AddReview, RegistrationForm
 from app import app, db
-from app.models import Todo, Review
+from app.models import Todo, Review, User
 from datetime import datetime, timedelta
 from data import certificats
 from os.path import join, dirname, realpath
@@ -74,22 +74,20 @@ def login():
     form = LoginForm()
     
     if form.validate_on_submit():
-        inputtedUsername = form.email.data
+        inputtedEmail = form.email.data
         inputtedPassword = form.password.data
         
-        dataJsonPath = join(dirname(realpath(__file__)), 'data.json')
-        with open(dataJsonPath, "r", encoding="utf-8") as f:
-            userData = json.loads(f.read())
+        user = User.query.filter_by(email=inputtedEmail).first()
     
-        if (inputtedUsername == userData.get('email') and inputtedPassword == userData.get("password")):
+        if (inputtedEmail == user.email and inputtedPassword == user.password):
             if form.rememberMe.data:
-                session["username"] = inputtedUsername
+                session["username"] = user.username
                 flash("Login Succesful", "success")
                 return redirect(url_for('info'))
             flash("Login Succesful to home", "success")
             return redirect(url_for('home'))
         
-        flash("Incorrect username or password", "danger")
+        flash("Incorrect email or password", "danger")
         return redirect(url_for('login'))
     
     return render_template('login.html', form=form)
@@ -99,8 +97,18 @@ def login():
 def registration():
     form = RegistrationForm()
     if form.validate_on_submit():
+        username = form.username.data
+        email = form.email.data
+        password = form.password.data
+        
+        user = User(username, email, password)
+        
+        db.session.add(user)
+        db.session.commit()
+        
         flash(f"Account created for {form.username.data} !", "success")
         return redirect(url_for('login'))
+    
     return render_template("registration.html", form=form)
 
 
