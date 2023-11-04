@@ -1,6 +1,6 @@
 import os, json
 from flask import render_template, abort, request, redirect, session, url_for, make_response, flash
-from .form import LoginForm, ChangePasswordForm, AddTodoItemForm, AddReview
+from .form import LoginForm, ChangePasswordForm, AddTodoItemForm, AddReview, RegistrationForm
 from app import app, db
 from app.models import Todo, Review
 from datetime import datetime, timedelta
@@ -93,6 +93,15 @@ def login():
         return redirect(url_for('login'))
     
     return render_template('login.html', form=form)
+
+
+@app.route("/registration", methods=['GET', 'POST'])
+def registration():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash("Account created for {form.username.data} !", "success")
+        return redirect(url_for('login'))
+    return render_template("registration.html", form=form)
 
 
 @app.route("/info", methods=['GET', 'POST'])
