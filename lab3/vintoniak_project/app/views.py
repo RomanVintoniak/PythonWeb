@@ -74,14 +74,14 @@ def login():
     form = LoginForm()
     
     if form.validate_on_submit():
-        inputtedUsername = form.username.data
+        inputtedUsername = form.email.data
         inputtedPassword = form.password.data
         
         dataJsonPath = join(dirname(realpath(__file__)), 'data.json')
         with open(dataJsonPath, "r", encoding="utf-8") as f:
             userData = json.loads(f.read())
     
-        if (inputtedUsername == userData.get('username') and inputtedPassword == userData.get("password")):
+        if (inputtedUsername == userData.get('email') and inputtedPassword == userData.get("password")):
             if form.rememberMe.data:
                 session["username"] = inputtedUsername
                 flash("Login Succesful", "success")
