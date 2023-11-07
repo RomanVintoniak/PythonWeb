@@ -6,6 +6,7 @@ from app.models import Todo, Review, User
 from datetime import datetime, timedelta
 from data import certificats
 from os.path import join, dirname, realpath
+from flask_login import login_user, current_user
 
 mySkills = [
     {
@@ -68,8 +69,12 @@ def certificates():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if session.get('username'):
-        return redirect(url_for('info'))
+    if current_user.is_authenticated:
+        flash("You are already logged in", "success")
+        return redirect(url_for('home'))
+    
+    #if session.get('username'):
+    #    return redirect(url_for('info'))
     
     form = LoginForm()
     
@@ -82,8 +87,10 @@ def login():
         if (inputtedEmail == user.email and user.checkPassword(inputtedPassword)):
             if form.rememberMe.data:
                 session["username"] = user.username
+                login_user(user)
                 flash("Login Succesful", "success")
                 return redirect(url_for('info'))
+            login_user(user)
             flash("Login Succesful to home", "success")
             return redirect(url_for('home'))
         
@@ -95,7 +102,12 @@ def login():
 
 @app.route("/registration", methods=['GET', 'POST'])
 def registration():
+    if current_user.is_authenticated:
+        flash("You are already registered", "success")
+        return redirect(url_for('home'))
+    
     form = RegistrationForm()
+    
     if form.validate_on_submit():
         username = form.username.data
         email = form.email.data
@@ -116,9 +128,9 @@ def registration():
 def info():
     changePasswordForm = ChangePasswordForm()
     
-    if not session.get("username"):
-        flash("Please check the box 'remember me'", "danger")
-        return redirect(url_for('login'))
+    #if not session.get("username"):
+    #    flash("Please check the box 'remember me'", "danger")
+    #    return redirect(url_for('login'))
     
     username = session.get("username")
     cookies = request.cookies
