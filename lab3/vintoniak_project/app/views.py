@@ -6,7 +6,7 @@ from app.models import Todo, Review, User
 from datetime import datetime, timedelta
 from data import certificats
 from os.path import join, dirname, realpath
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 mySkills = [
     {
@@ -125,6 +125,7 @@ def registration():
 
 
 @app.route("/info", methods=['GET', 'POST'])
+@login_required
 def info():
     changePasswordForm = ChangePasswordForm()
     
@@ -286,5 +287,6 @@ def users():
     return render_template("users.html", users=users)
 
 @app.route('/account')
+@login_required
 def account():
     return render_template('account.html')
