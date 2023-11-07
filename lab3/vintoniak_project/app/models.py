@@ -1,6 +1,12 @@
-from app import db
+from app import db, login_manager
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+
+
+@login_manager.user_loader
+def user_loader(user_id):
+    return User.query.get(int(user_id))
 
 
 class Todo(db.Model):
@@ -25,7 +31,7 @@ class Review(db.Model):
         self.content = content
         
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
     
     id = db.Column(db.Integer, primary_key=True)
