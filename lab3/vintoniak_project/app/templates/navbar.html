@@ -5,7 +5,8 @@
     "Registration": url_for('registration'),
     "Todo": url_for('todo'),
     "Feedbacks": url_for('reviews'),
-    "Users": url_for('users')
+    "Users": url_for('users'),
+    "Logout": url_for('logout')
 } %}
 
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
@@ -14,9 +15,19 @@
       <div class="collapse navbar-collapse flex-grow-0" id="navbarColor01">
         <ul class="navbar-nav">
           {% for name, url in menu.items() %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url }}">{{ name }}</a>
-            </li>    
+            {% if current_user.is_authenticated %}
+              {% if name != "Login" and name != "Registration" %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url }}">{{ name }}</a>
+                </li>
+              {% endif %}
+            {% else %}
+              {% if name != "Logout" %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url }}">{{ name }}</a>
+              </li>
+              {% endif %}
+            {% endif %}
           {% endfor %}
         </ul>
       </div>
