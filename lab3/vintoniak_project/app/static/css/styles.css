@@ -45,3 +45,9 @@ ul a {
     height: 50px;
     border-radius: 50%;
 }
+
+.accountPhoto {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}

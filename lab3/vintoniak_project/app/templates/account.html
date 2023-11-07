@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Account{% endblock %}
+{% block content %}
+    <div class="container mt-50">
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <img src="{{ url_for('static', filename='images/' + current_user.image) }}" alt="Photo" class="accountPhoto">
+            </div>
+            <div class="col-4">
+                <h1>{{ current_user.username }}</h1>
+                <br>
+                <h4>{{ current_user.email }}</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,6 +1,7 @@
 {% set menu = {
     "Skills": url_for('skills'),
     "Certificates": url_for('certificates'),
+    "Account": url_for('account'),
     "Login": url_for('login'),
     "Registration": url_for('registration'),
     "Todo": url_for('todo'),
@@ -22,7 +23,7 @@
                 </li>
               {% endif %}
             {% else %}
-              {% if name != "Logout" %}
+              {% if name != "Logout" and name != "Account" %}
               <li class="nav-item">
                 <a class="nav-link" href="{{ url }}">{{ name }}</a>
               </li>

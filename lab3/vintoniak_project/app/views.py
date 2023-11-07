@@ -284,3 +284,7 @@ def deleteReview(id):
 def users():
     users = User.query.all()
     return render_template("users.html", users=users)
+
+@app.route('/account')
+def account():
+    return render_template('account.html')
