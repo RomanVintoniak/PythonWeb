@@ -6,7 +6,7 @@ from app.models import Todo, Review, User
 from datetime import datetime, timedelta
 from data import certificats
 from os.path import join, dirname, realpath
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 
 mySkills = [
     {
@@ -140,6 +140,7 @@ def info():
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.clear()
+    logout_user()
     flash("You are logged out", "success")
     return redirect(url_for('login'))
 
