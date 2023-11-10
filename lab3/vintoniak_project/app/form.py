@@ -44,3 +44,17 @@ class AddReview(FlaskForm):
     content = TextAreaField("Eenter content", validators=[DataRequired("This field is required")])
     submit = SubmitField("Add")
     
+class UpdateAccountForm(FlaskForm):
+    username = StringField("Username", validators=[Length(min=4, max=10),
+                                                   Regexp('^[A-Za-z][a-zA-Z0-9._]+$', 0,
+                                                            "username must have only letters, numbers, dots or underscores")])
+    email = EmailField("Email", validators=[Email("Please enter your email address")])
+    submit = SubmitField("Update")
+    
+    def validate_email(self, field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError('Email already registered')
+    
+    def validate_username(self, field):
+        if User.query.filter_by(username=field.data).first():
+            raise ValidationError("Username already in use")

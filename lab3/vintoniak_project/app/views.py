@@ -1,6 +1,6 @@
 import os, json
 from flask import render_template, abort, request, redirect, session, url_for, make_response, flash
-from .form import LoginForm, ChangePasswordForm, AddTodoItemForm, AddReview, RegistrationForm
+from .form import LoginForm, ChangePasswordForm, AddTodoItemForm, AddReview, RegistrationForm, UpdateAccountForm
 from app import app, db
 from app.models import Todo, Review, User
 from datetime import datetime, timedelta
@@ -286,7 +286,12 @@ def users():
     users = User.query.all()
     return render_template("users.html", users=users)
 
-@app.route('/account')
+@app.route('/account', methods=["GET", "POST"])
 @login_required
 def account():
-    return render_template('account.html')
+    form = UpdateAccountForm()
+    
+    if form.validate_on_submit():
+        pass
+    
+    return render_template('account.html', form=form)

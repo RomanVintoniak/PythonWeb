@@ -1,16 +1,26 @@
+{% from 'fieldMacro.html' import displayField %}
 {% extends 'base.html' %}
 {% block title %}Account{% endblock %}
 {% block content %}
-    <div class="container mt-50">
-        <div class="row justify-content-center">
-            <div class="col-3">
-                <img src="{{ url_for('static', filename='images/' + current_user.image) }}" alt="Photo" class="accountPhoto">
-            </div>
-            <div class="col-4">
-                <h1>{{ current_user.username }}</h1>
-                <br>
-                <h4>{{ current_user.email }}</h4>
-            </div>
+    <div class="container text-center mt-50">
+        <img src="{{ url_for('static', filename='images/' + current_user.image) }}" alt="Photo" class="accountPhoto">
+        <br><br>
+        <h1>{{ current_user.username }}</h1>
+        <h4>{{ current_user.email }}</h4>
+    </div>
+    <br><hr>
+    <div class="container">
+        <br>
+        <h2>Account info</h2>
+        <div class="d-flex justify-content-start">
+            <form method="POST" novalidate>
+                {{ form.csrf_token }}
+                {{ displayField(form.username, "Username") }}
+                {{ displayField(form.email, "Email") }}
+                <br><br>
+                {{ form.submit(class="btn btn-primary width-100 negative-mt-20") }}
+            </form>
         </div>
     </div>
+    <br><br>
 {% endblock %}
