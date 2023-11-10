@@ -37,6 +37,17 @@ mySkills = [
     }
 ] 
 
+@app.after_request
+def after_request(response):
+    if current_user:
+        current_user.lastSeen = datetime.now()
+        try:
+            db.session.commit()
+        except:
+            flash('Error while update user last seen!', 'danger')
+        return response
+
+
 @app.route('/')
 def home():
     osInfo = os.environ.get('OS')
@@ -298,11 +309,13 @@ def account():
             current_user.image = newImage
         current_user.username = form.username.data
         current_user.email = form.email.data
+        current_user.aboutMe = form.aboutMe.data
         db.session.commit()
         flash('Account Updated', "success")
         return redirect(url_for('account'))
     elif request.method == "GET":
         form.username.data = current_user.username
         form.email.data = current_user.email
+        form.aboutMe.data = current_user.aboutMe
     
     return render_template('account.html', form=form)

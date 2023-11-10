@@ -39,6 +39,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image = db.Column(db.String(20),  nullable=False, default="default.jpg")
     password = db.Column(db.String(120), nullable=False)
+    aboutMe = db.Column(db.String(500), nullable=True, default="")
+    lastSeen = db.Column(db.DateTime, default=datetime.now())
     
     def __init__(self, username, email, password):
         self.username = username

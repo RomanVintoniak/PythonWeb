@@ -2,11 +2,17 @@
 {% extends 'base.html' %}
 {% block title %}Account{% endblock %}
 {% block content %}
-    <div class="container text-center mt-50">
+    <div class="container text-center mt-10">
+        <small class="text-body-tertiary">
+            last seen {{ current_user.lastSeen.strftime("%d-%m-%Y %H:%M:%S") }}
+        </small>
+        <br><br><br>
         <img src="{{ url_for('static', filename='images/' + current_user.image) }}" alt="Photo" class="accountPhoto">
         <br><br>
         <h1>{{ current_user.username }}</h1>
         <h4>{{ current_user.email }}</h4>
+        <br>
+        <p>{{ current_user.aboutMe }}</p>
     </div>
     <br><hr>
     <div class="container">
@@ -17,6 +23,7 @@
                 {{ form.csrf_token }}
                 {{ displayField(form.username, "Username") }}
                 {{ displayField(form.email, "Email") }}
+                {{ displayField(form.aboutMe, "") }}
                 {{ displayField(form.image, "") }}
                 <br><br>
                 {{ form.submit(class="btn btn-primary width-100 negative-mt-20") }}

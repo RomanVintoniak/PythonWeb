@@ -46,12 +46,14 @@ class AddReview(FlaskForm):
     content = TextAreaField("Eenter content", validators=[DataRequired("This field is required")])
     submit = SubmitField("Add")
     
+    
 class UpdateAccountForm(FlaskForm):
     username = StringField("Username", validators=[Length(min=4, max=10),
                                                    Regexp('^[A-Za-z][a-zA-Z0-9._]+$', 0,
                                                             "username must have only letters, numbers, dots or underscores")])
     email = EmailField("Email", validators=[Email("Please enter your email address")])
     image = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    aboutMe = TextAreaField("About Me")
     submit = SubmitField("Update")
     
     def validate_username(self, username):
