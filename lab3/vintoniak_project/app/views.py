@@ -292,6 +292,13 @@ def account():
     form = UpdateAccountForm()
     
     if form.validate_on_submit():
-        pass
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Account Updated', "success")
+        return redirect(url_for('account'))
+    elif request.method == "GET":
+        form.username.data = current_user.username
+        form.email.data = current_user.email
     
     return render_template('account.html', form=form)

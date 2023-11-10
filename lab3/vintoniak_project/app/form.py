@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from .models import User
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, TextAreaField, EmailField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
+from flask_login import current_user
 
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired("This field is required"), Email("Please enter your email address")])
@@ -51,10 +52,12 @@ class UpdateAccountForm(FlaskForm):
     email = EmailField("Email", validators=[Email("Please enter your email address")])
     submit = SubmitField("Update")
     
-    def validate_email(self, field):
-        if User.query.filter_by(email=field.data).first():
-            raise ValidationError('Email already registered')
+    def validate_username(self, username):
+        if username.data != current_user.username:
+            if User.query.filter_by(username=username.data).first():
+                raise ValidationError('Username already in use')
     
-    def validate_username(self, field):
-        if User.query.filter_by(username=field.data).first():
-            raise ValidationError("Username already in use")
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            if User.query.filter_by(email=email.data).first():
+                raise ValidationError('Email already registered')
