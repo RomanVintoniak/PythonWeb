@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from data import certificats
 from os.path import join, dirname, realpath
 from flask_login import login_user, current_user, logout_user, login_required
+from .handlers.img_handler import add_account_img
 
 mySkills = [
     {
@@ -292,6 +293,9 @@ def account():
     form = UpdateAccountForm()
     
     if form.validate_on_submit():
+        if form.image.data:
+            newImage = add_account_img(form.image.data)
+            current_user.image = newImage
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
