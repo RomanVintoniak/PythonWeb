@@ -95,19 +95,11 @@
 
     <!-- Change password -->
     <div class="container mt-50">
-        <h4 class="text-center">Change password</h4>
-        <div class="d-flex align-items-center justify-content-start">
-            <div class="mt-3">
-                <form action="{{ url_for('changePassword') }}" method="POST" novalidate>
-                    {{ changePasswordForm.csrf_token }}
-                    {{ displayField(changePasswordForm.password, "Password") }}
-                    {{ displayField(changePasswordForm.repassword, "Password") }}
-                    <br><br>
-                    {{ changePasswordForm.submit(class="btn btn-primary width-100 negative-mt-20") }}
-                </form>
-            </div>
-        </div>
+        <a href="{{ url_for('resetPassword') }}">
+            <button class="btn btn-primary">Reset password</button>
+        </a>
     </div>
+    
 
     <br><br><br><br><br><br><br><br>
 {% endblock %}

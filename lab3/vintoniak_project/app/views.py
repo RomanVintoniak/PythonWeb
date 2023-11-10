@@ -1,6 +1,6 @@
 import os, json
 from flask import render_template, abort, request, redirect, session, url_for, make_response, flash
-from .form import LoginForm, ChangePasswordForm, AddTodoItemForm, AddReview, RegistrationForm, UpdateAccountForm
+from .form import LoginForm, ResetPasswordForm, AddTodoItemForm, AddReview, RegistrationForm, UpdateAccountForm
 from app import app, db
 from app.models import Todo, Review, User
 from datetime import datetime, timedelta
@@ -8,6 +8,7 @@ from data import certificats
 from os.path import join, dirname, realpath
 from flask_login import login_user, current_user, logout_user, login_required
 from .handlers.img_handler import add_account_img
+from werkzeug.security import generate_password_hash
 
 mySkills = [
     {
@@ -94,14 +95,14 @@ def login():
         inputtedEmail = form.email.data
         inputtedPassword = form.password.data
         
-        user = User.query.filter_by(email=inputtedEmail).first()
+        user = User.query.filter_by(email=inputtedEmail).first_or_404()
     
         if (inputtedEmail == user.email and user.checkPassword(inputtedPassword)):
             if form.rememberMe.data:
                 session["username"] = user.username
                 login_user(user)
                 flash("Login Succesful", "success")
-                return redirect(url_for('info'))
+                return redirect(url_for('account'))
             login_user(user)
             flash("Login Succesful to home", "success")
             return redirect(url_for('home'))
@@ -139,7 +140,6 @@ def registration():
 @app.route("/info", methods=['GET', 'POST'])
 @login_required
 def info():
-    changePasswordForm = ChangePasswordForm()
     
     #if not session.get("username"):
     #    flash("Please check the box 'remember me'", "danger")
@@ -147,7 +147,7 @@ def info():
     
     username = session.get("username")
     cookies = request.cookies
-    return render_template("info.html", username=username, cookies=cookies, changePasswordForm=changePasswordForm)
+    return render_template("info.html", username=username, cookies=cookies)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -191,32 +191,18 @@ def deleteCookieAll():
     return response
     
 
-@app.route('/changePassword', methods=['GET', 'POST'])
-def changePassword():
-    changePasswordForm = ChangePasswordForm()
+@app.route('/resetPassword', methods=['GET', 'POST'])
+@login_required
+def resetPassword():
+    form = ResetPasswordForm()
     
-    if changePasswordForm.validate_on_submit():
-        newPass = changePasswordForm.password.data
-        rePass = changePasswordForm.repassword.data
-        username = session.get("username")
-        
-        if newPass == rePass:
-            
-            dataJsonPath = join(dirname(realpath(__file__)), 'data.json')
-            temp = {
-                "username": username,
-                "password": newPass
-            }
-            
-            jsonString = json.dumps(temp, indent=2)
-            with open(dataJsonPath, "w") as f:
-                f.write(jsonString)
-            
-            flash("Password changed successfully", "success")
-            return redirect(url_for('login'))
-        
-    flash("Passwords do not match", "danger")    
-    return redirect(url_for('info'))
+    if form.validate_on_submit():
+        current_user.password = generate_password_hash(form.newPassword.data)
+        db.session.commit()
+        flash("Password changed successfully", "success")
+        return redirect(url_for('account'))
+    
+    return render_template("resetPassword.html", form=form)
     
 
 @app.route('/todo', methods=["GET", "POST"])

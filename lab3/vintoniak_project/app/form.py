@@ -30,10 +30,23 @@ class RegistrationForm(FlaskForm):
             raise ValidationError("Username already in use")
 
 
-class ChangePasswordForm(FlaskForm):
-    password = PasswordField("Enter new password", validators=[DataRequired("This field is required"), Length(min=4, max=10)])
-    repassword = PasswordField("Enter new password again", validators=[DataRequired("This field is required"), Length(min=4, max=10)])
-    submit = SubmitField("Change")
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField("Enter old password", validators=[DataRequired("This field is required"), 
+                                                               Length(min=4, max=10)])
+    
+    newPassword = PasswordField("Enter new password", validators=[DataRequired("This field is required"), 
+                                                                  Length(min=4, max=10)])
+    
+    confirmNewPassword = PasswordField("Confirm new password", validators=[DataRequired("This field is required"), 
+                                                                               Length(min=4, max=10),
+                                                                               EqualTo("newPassword", "Passwords do not match")])
+    submit = SubmitField("Reset")
+    
+    def validate_password(self, field):
+        if not current_user.checkPassword(field.data):
+            raise ValidationError("Incorrect password")
+            
+            
     
 class AddTodoItemForm(FlaskForm):
     title = StringField("Enter a task here", validators=[DataRequired("This field is required")])

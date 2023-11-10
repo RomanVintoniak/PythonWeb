@@ -18,7 +18,7 @@
     <div class="container">
         <br>
         <h2>Account info</h2>
-        <div class="d-flex justify-content-start">
+        <div class="width-300">
             <form method="POST" novalidate enctype="multipart/form-data">
                 {{ form.csrf_token }}
                 {{ displayField(form.username, "Username") }}
@@ -28,6 +28,10 @@
                 <br><br>
                 {{ form.submit(class="btn btn-primary width-100 negative-mt-20") }}
             </form>
+            <br><br><br>
+            <a href="{{ url_for('resetPassword') }}">
+                <button class="btn btn-primary width-100">Reset password</button>
+            </a>
         </div>
     </div>
     <br><br>
