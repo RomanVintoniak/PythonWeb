@@ -205,41 +205,7 @@ def resetPassword():
     return render_template("resetPassword.html", form=form)
     
 
-@app.route('/todo', methods=["GET", "POST"])
-def todo():
-    form = AddTodoItemForm()
-    todo_list = Todo.query.all()
-    return render_template('todo.html', form=form, todo_list=todo_list)
 
-
-@app.route('/todo/add', methods=["POST"])
-def add():
-    form = AddTodoItemForm()
-    
-    if form.validate_on_submit():
-        title = form.title.data
-        description = form.description.data
-        todoItem = Todo(title=title, description=description, complete=False)
-        db.session.add(todoItem)
-        db.session.commit()
-        
-    return redirect(url_for("todo"))
-
-
-@app.route('/todo/delete/<int:id>')
-def delete(id):
-    todoItem = Todo.query.filter_by(id=id).first_or_404()
-    db.session.delete(todoItem)
-    db.session.commit()
-    return redirect(url_for('todo'))
-
-
-@app.route('/todo/update/<int:id>')
-def update(id):
-    todoItem = Todo.query.filter_by(id=id).first_or_404()
-    todoItem.complete = not todoItem.complete
-    db.session.commit()
-    return redirect(url_for('todo'))
 
 
 

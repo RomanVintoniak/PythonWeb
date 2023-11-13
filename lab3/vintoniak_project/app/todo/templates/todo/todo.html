@@ -9,7 +9,7 @@
 
             <h3 class="text-center my-3 pb-3">Your To Do list</h3>
             <br>
-            <form class="row" action="{{ url_for('add') }}" method="POST">
+            <form class="row" action="{{ url_for('todo.add') }}" method="POST">
               {{ form.hidden_tag() }}
               <div class="col-5">
                 <div class="form-outline">
@@ -54,8 +54,8 @@
                       </ul>
                     </td>
                     <td>
-                      <a class="btn btn-success" href="{{ url_for('update', id=todo.id) }}">Update</a>
-                      <a class="btn btn-danger ms-1" href="{{ url_for('delete', id=todo.id) }}">Delete</a>
+                      <a class="btn btn-success" href="{{ url_for('todo.update', id=todo.id) }}">Update</a>
+                      <a class="btn btn-danger ms-1" href="{{ url_for('todo.delete', id=todo.id) }}">Delete</a>
                     </td>
                   </tr>
                   {% endfor %}
