@@ -1,11 +1,10 @@
 import os, json
 from flask import render_template, abort, request, redirect, session, url_for, make_response, flash
-from .form import LoginForm, ResetPasswordForm, AddTodoItemForm, AddReview, RegistrationForm, UpdateAccountForm
+from .form import LoginForm, ResetPasswordForm, RegistrationForm, UpdateAccountForm
 from app import app, db
-from app.models import Todo, Review, User
-from datetime import datetime, timedelta
+from app.models import User
+from datetime import datetime
 from data import certificats
-from os.path import join, dirname, realpath
 from flask_login import login_user, current_user, logout_user, login_required
 from .handlers.img_handler import add_account_img
 from werkzeug.security import generate_password_hash
@@ -204,45 +203,6 @@ def resetPassword():
     
     return render_template("resetPassword.html", form=form)
     
-
-
-
-
-
-    
-@app.route("/reviews", methods=["GET", "POST"])
-def reviews():
-    form = AddReview()
-    reviews_list = Review.query.all()
-    return render_template("reviews.html", form = form, reviews_list=reviews_list)
-
-
-@app.route("/reviews/add", methods=["POST"])
-def addRevie():
-    form = AddReview()
-    
-    if form.validate_on_submit():
-        username = form.username.data
-        email = form.email.data
-        content = form.content.data
-        
-        review = Review(username, email, content)
-        
-        db.session.add(review)
-        db.session.commit()
-        
-        flash("Revie add successfully", "success")
-        
-    return redirect(url_for("reviews"))
-
-
-@app.route('/reviews/delete/<int:id>')
-def deleteReview(id):
-    review = Review.query.filter_by(id=id).first_or_404()
-    db.session.delete(review)
-    db.session.commit()
-    flash("Revie deleted successfully", "success")
-    return redirect(url_for('reviews'))
 
 
 @app.route('/users')

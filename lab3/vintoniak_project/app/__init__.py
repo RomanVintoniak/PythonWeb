@@ -15,7 +15,9 @@ login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
 from .todo.views import todo
+from .feedback.views import feedback
 app.register_blueprint(todo)
+app.register_blueprint(feedback)
 
 
 

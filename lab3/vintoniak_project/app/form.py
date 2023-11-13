@@ -47,19 +47,6 @@ class ResetPasswordForm(FlaskForm):
             raise ValidationError("Incorrect password")
             
             
-    
-class AddTodoItemForm(FlaskForm):
-    title = StringField("Enter a task here", validators=[DataRequired("This field is required")])
-    description = StringField("Enter description here", validators=[DataRequired("This field is required")])
-    submit = SubmitField("Save")
-    
-class AddReview(FlaskForm):
-    username = StringField("Enter username", validators=[DataRequired("This field is required")])
-    email = StringField("Enter email", validators=[DataRequired("This field is required")])
-    content = TextAreaField("Eenter content", validators=[DataRequired("This field is required")])
-    submit = SubmitField("Add")
-    
-    
 class UpdateAccountForm(FlaskForm):
     username = StringField("Username", validators=[Length(min=4, max=10),
                                                    Regexp('^[A-Za-z][a-zA-Z0-9._]+$', 0,

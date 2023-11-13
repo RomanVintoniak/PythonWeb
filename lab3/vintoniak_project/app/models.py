@@ -16,8 +16,8 @@ class Todo(db.Model):
     description = db.Column(db.String(200))
     complete = db.Column(db.Boolean)
 
-class Review(db.Model):
-    __tablename__ = "review"
+class Feedback(db.Model):
+    __tablename__ = "feedbacks"
     
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(25), unique=True)
