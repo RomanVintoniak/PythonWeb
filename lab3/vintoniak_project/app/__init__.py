@@ -18,10 +18,12 @@ from .todo.views import todo
 from .feedback.views import feedback
 from .portfolio.views import portfolio
 from .authentication.views import auth
+from .cookie.views import cookie_bp
 app.register_blueprint(todo)
 app.register_blueprint(feedback)
 app.register_blueprint(portfolio)
 app.register_blueprint(auth)
+app.register_blueprint(cookie_bp)
 
 
 
