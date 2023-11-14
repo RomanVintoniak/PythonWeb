@@ -12,7 +12,7 @@
         <!-- Logout button -->
         <div class="d-flex align-items-center justify-content-start">
             <div class="mt-3">
-                <form action="{{ url_for('logout') }}" method="POST">
+                <form action="{{ url_for('auth.logout') }}" method="POST">
                     <button type="submit" class="btn btn-primary" style="width: 100%;">Logout</button>
                 </form>
             </div>
@@ -95,7 +95,7 @@
 
     <!-- Change password -->
     <div class="container mt-50">
-        <a href="{{ url_for('resetPassword') }}">
+        <a href="{{ url_for('auth.resetPassword') }}">
             <button class="btn btn-primary">Reset password</button>
         </a>
     </div>

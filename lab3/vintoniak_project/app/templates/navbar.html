@@ -1,13 +1,13 @@
 {% set menu = {
     "Skills": url_for('portfolio.skills'),
     "Certificates": url_for('portfolio.certificates'),
-    "Account": url_for('account'),
-    "Login": url_for('login'),
-    "Registration": url_for('registration'),
+    "Account": url_for('auth.account'),
+    "Login": url_for('auth.login'),
+    "Registration": url_for('auth.registration'),
     "Todo": url_for('todo.todos'),
     "Feedbacks": url_for('feedback.feedbacks'),
     "Users": url_for('users'),
-    "Logout": url_for('logout')
+    "Logout": url_for('auth.logout')
 } %}
 
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">

@@ -1,11 +1,8 @@
-import os, json
-from flask import render_template, abort, request, redirect, session, url_for, make_response, flash
-from .form import LoginForm, ResetPasswordForm, RegistrationForm, UpdateAccountForm
+from flask import render_template, request, redirect, session, url_for, make_response, flash
 from app import app, db
 from app.models import User
 from datetime import datetime
-from flask_login import login_user, current_user, logout_user, login_required
-from .handlers.img_handler import add_account_img
+from flask_login import current_user, login_required
 from werkzeug.security import generate_password_hash
 
 
@@ -22,64 +19,6 @@ def after_request(response):
 
 
 
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        flash("You are already logged in", "success")
-        return redirect(url_for('home'))
-    
-    #if session.get('username'):
-    #    return redirect(url_for('info'))
-    
-    form = LoginForm()
-    
-    if form.validate_on_submit():
-        inputtedEmail = form.email.data
-        inputtedPassword = form.password.data
-        
-        user = User.query.filter_by(email=inputtedEmail).first_or_404()
-    
-        if (inputtedEmail == user.email and user.checkPassword(inputtedPassword)):
-            if form.rememberMe.data:
-                session["username"] = user.username
-                login_user(user)
-                flash("Login Succesful", "success")
-                return redirect(url_for('account'))
-            login_user(user)
-            flash("Login Succesful to home", "success")
-            return redirect(url_for('home'))
-        
-        flash("Incorrect email or password", "danger")
-        return redirect(url_for('login'))
-    
-    return render_template('login.html', form=form)
-
-
-@app.route("/registration", methods=['GET', 'POST'])
-def registration():
-    if current_user.is_authenticated:
-        flash("You are already registered", "success")
-        return redirect(url_for('home'))
-    
-    form = RegistrationForm()
-    
-    if form.validate_on_submit():
-        username = form.username.data
-        email = form.email.data
-        password = form.password.data
-        
-        user = User(username, email, password)
-        
-        db.session.add(user)
-        db.session.commit()
-        
-        flash(f"Account created for {form.username.data} !", "success")
-        return redirect(url_for('login'))
-    
-    return render_template("registration.html", form=form)
-
-
 @app.route("/info", methods=['GET', 'POST'])
 @login_required
 def info():
@@ -92,13 +31,6 @@ def info():
     cookies = request.cookies
     return render_template("info.html", username=username, cookies=cookies)
 
-
-@app.route('/logout', methods=['GET', 'POST'])
-def logout():
-    session.clear()
-    logout_user()
-    flash("You are logged out", "success")
-    return redirect(url_for('login'))
 
 
 @app.route('/setCookie', methods=["POST"])
@@ -133,45 +65,7 @@ def deleteCookieAll():
     flash("Cookie deleted successfully", "success")    
     return response
     
-
-@app.route('/resetPassword', methods=['GET', 'POST'])
-@login_required
-def resetPassword():
-    form = ResetPasswordForm()
-    
-    if form.validate_on_submit():
-        current_user.password = generate_password_hash(form.newPassword.data)
-        db.session.commit()
-        flash("Password changed successfully", "success")
-        return redirect(url_for('account'))
-    
-    return render_template("resetPassword.html", form=form)
-    
-
-
 @app.route('/users')
 def users():
     users = User.query.all()
     return render_template("users.html", users=users)
-
-@app.route('/account', methods=["GET", "POST"])
-@login_required
-def account():
-    form = UpdateAccountForm()
-    
-    if form.validate_on_submit():
-        if form.image.data:
-            newImage = add_account_img(form.image.data)
-            current_user.image = newImage
-        current_user.username = form.username.data
-        current_user.email = form.email.data
-        current_user.aboutMe = form.aboutMe.data
-        db.session.commit()
-        flash('Account Updated', "success")
-        return redirect(url_for('account'))
-    elif request.method == "GET":
-        form.username.data = current_user.username
-        form.email.data = current_user.email
-        form.aboutMe.data = current_user.aboutMe
-    
-    return render_template('account.html', form=form)

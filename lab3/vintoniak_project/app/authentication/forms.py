@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from .models import User
-from wtforms import StringField, SubmitField, PasswordField, BooleanField, TextAreaField, EmailField
+from app.models import User
+from wtforms import StringField, SubmitField, PasswordField, BooleanField, EmailField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
-from flask_wtf.file import FileField, FileAllowed 
+from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 
 class LoginForm(FlaskForm):
@@ -30,23 +30,6 @@ class RegistrationForm(FlaskForm):
             raise ValidationError("Username already in use")
 
 
-class ResetPasswordForm(FlaskForm):
-    password = PasswordField("Enter old password", validators=[DataRequired("This field is required"), 
-                                                               Length(min=4, max=10)])
-    
-    newPassword = PasswordField("Enter new password", validators=[DataRequired("This field is required"), 
-                                                                  Length(min=4, max=10)])
-    
-    confirmNewPassword = PasswordField("Confirm new password", validators=[DataRequired("This field is required"), 
-                                                                               Length(min=4, max=10),
-                                                                               EqualTo("newPassword", "Passwords do not match")])
-    submit = SubmitField("Reset")
-    
-    def validate_password(self, field):
-        if not current_user.checkPassword(field.data):
-            raise ValidationError("Incorrect password")
-            
-            
 class UpdateAccountForm(FlaskForm):
     username = StringField("Username", validators=[Length(min=4, max=10),
                                                    Regexp('^[A-Za-z][a-zA-Z0-9._]+$', 0,
@@ -65,3 +48,20 @@ class UpdateAccountForm(FlaskForm):
         if email.data != current_user.email:
             if User.query.filter_by(email=email.data).first():
                 raise ValidationError('Email already registered')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField("Enter old password", validators=[DataRequired("This field is required"), 
+                                                               Length(min=4, max=10)])
+    
+    newPassword = PasswordField("Enter new password", validators=[DataRequired("This field is required"), 
+                                                                  Length(min=4, max=10)])
+    
+    confirmNewPassword = PasswordField("Confirm new password", validators=[DataRequired("This field is required"), 
+                                                                               Length(min=4, max=10),
+                                                                               EqualTo("newPassword", "Passwords do not match")])
+    submit = SubmitField("Reset")
+    
+    def validate_password(self, field):
+        if not current_user.checkPassword(field.data):
+            raise ValidationError("Incorrect password")
