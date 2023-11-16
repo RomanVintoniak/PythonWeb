@@ -3,7 +3,8 @@ from .forms import RegistrationForm, LoginForm, UpdateAccountForm, ResetPassword
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash
 from app.handlers.img_handler import add_account_img
-from app.models import User
+from datetime import datetime
+from .models import User
 from app import db
 from . import auth
 
@@ -108,3 +109,20 @@ def resetPassword():
         return redirect(url_for('auth.account'))
     
     return render_template("resetPassword.html", form=form)
+
+
+@auth.after_request
+def after_request(response):
+    if current_user:
+        current_user.lastSeen = datetime.now()
+        try:
+            db.session.commit()
+        except:
+            flash('Error while update user last seen!', 'danger')
+        return response
+
+
+@auth.route('/users')
+def users():
+    users = User.query.all()
+    return render_template("users.html", users=users)
