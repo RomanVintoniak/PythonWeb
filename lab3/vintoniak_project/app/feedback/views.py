@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash
 from .forms import AddFeedback
-from app.models import Feedback
+from .models import Feedback
 from app import db
 from . import feedback
 

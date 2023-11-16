@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for
 from .forms import AddTodoItemForm
-from app.models import Todo
+from .models import Todo
 from app import db
 from . import todo
 
