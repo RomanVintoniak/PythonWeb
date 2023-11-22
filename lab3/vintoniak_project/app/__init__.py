@@ -28,11 +28,13 @@ def create_app(config_name: str):
         from .portfolio.views import portfolio
         from .authentication.views import auth
         from .cookie.views import cookie_bp
+        from .post.views import post
         app.register_blueprint(todo)
         app.register_blueprint(feedback)
         app.register_blueprint(portfolio)
         app.register_blueprint(auth)
         app.register_blueprint(cookie_bp)
+        app.register_blueprint(post)
         
         from app import views
         
