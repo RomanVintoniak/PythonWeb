@@ -18,6 +18,8 @@ class User(db.Model, UserMixin):
     aboutMe = db.Column(db.String(500), nullable=True, default="")
     lastSeen = db.Column(db.DateTime, default=datetime.now())
     
+    posts = db.relationship('Post', backref='author', lazy=True)
+    
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
