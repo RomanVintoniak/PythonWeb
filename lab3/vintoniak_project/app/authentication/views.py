@@ -114,9 +114,10 @@ def resetPassword():
 @auth.after_request
 def after_request(response):
     if current_user:
-        current_user.lastSeen = datetime.now()
+        #current_user.lastSeen = datetime.now()
         try:
-            db.session.commit()
+            #db.session.commit()
+            pass
         except:
             flash('Error while update user last seen!', 'danger')
         return response

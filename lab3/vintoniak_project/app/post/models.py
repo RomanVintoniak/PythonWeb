@@ -22,8 +22,6 @@ class Post(db.Model):
     enabled = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     
-    user = db.relationship(User, overlaps="author, posts")
-    
     def __init__(self, title, text):
         self.title = title
         self.text = text
