@@ -24,6 +24,14 @@ class Post(db.Model):
     
     user = db.relationship(User, overlaps="author, posts")
     
+    def __init__(self, title, text):
+        self.title = title
+        self.text = text
+    
+    def __repr__(self):
+        return f"id: {self.id} | title: {self.title} | createdAt: \
+            {self.createdAt.strftime('%d-%m-%Y %H:%M:%S')}"
+    
     
     
     
