@@ -2,6 +2,7 @@ from app import db, login_manager
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from app.post.models import Post
 
 @login_manager.user_loader
 def user_loader(user_id):
@@ -17,6 +18,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(120), nullable=False)
     aboutMe = db.Column(db.String(500), nullable=True, default="")
     lastSeen = db.Column(db.DateTime, default=datetime.now())
+    
+    posts = db.relationship('Post', backref='author', lazy=True)
     
     def __init__(self, username, email, password):
         self.username = username
