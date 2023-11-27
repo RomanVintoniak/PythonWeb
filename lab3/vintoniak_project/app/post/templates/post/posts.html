@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Posts{% endblock %}
+{% block content %}
+    <div class="container mt-30">
+        <h1 class="text-center">List of posts</h1>
+        <br>
+        <div class="d-flex justify-content-end">
+            <a href="{{ url_for('post.create') }}" class="btn btn-success">
+                <i class="bi bi-file-earmark-plus-fill"></i>
+            </a>
+        </div>
+        <br><br><br><br>
+        {% for post in posts %}
+            <div class="row">
+                <div class="col-2">
+                    <img src="{{ url_for('post.static', filename='images/' + post.image) }}" alt="Photo" class="postPhoto-small">
+                </div>
+                <div class="col-5">
+                    <h4><a href="{{ url_for('post.postID', id=post.id) }}">{{ post.title }}</a></h4>
+                </div>
+                <div class="col-3">
+                    <h6>{{ post.postType }}</h6>
+                </div>
+                <div class="col-2">
+                    <h6>{{ post.createdAt.strftime('%d/%m/%Y %H:%M:%S') }}</h6>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock %}
