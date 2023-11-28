@@ -8,7 +8,9 @@ from . import post
 
 @post.route("/posts")
 def posts():
-    posts = Post.query.all()
+    page = request.args.get('page', 1, type = int)
+    posts = Post.query.order_by(Post.createdAt.desc()).paginate(page = page, per_page = 2)
+    
     return render_template('posts.html', posts=posts)
     
 
