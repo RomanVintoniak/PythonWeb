@@ -1,25 +1,23 @@
-# Lab 9
+# Lab 11
 <br>
 
-#### Task3: UpdateAccountForm with Username and Email
-![photo](Screenshots/UpdateAccountForm%20.png)
-![photo](Screenshots/UpdateAccountForm%20errors.png)
+#### GET: /posts
+![photo](Screenshots/posts.png)
 <br><br>
 
-#### Task4: UpdateAccountForm with user's data
-![photo](Screenshots/UpdateAccountForm%20with%20user%20data.png)
-![photo](Screenshots/test%20UpdateAccountForm.png)
+#### POST: /post/create
+![photo](Screenshots/postCreate.png)
 <br><br>
 
-#### Task5: Updating account image
-![photo](Screenshots/account%20img%20updated.png)
+#### GET: /post/<int: id\>
+![photo](Screenshots/postID.png)
 <br><br>
 
-#### Task5: Add aboutMe and lastSeen
-![photo](Screenshots/aboutMe,%20lastSeen.png)
+#### POST /post/<int: id\>/update
+![photo](Screenshots/postEdit.png)
 <br><br>
 
-#### Task6: Reset password
-![photo](Screenshots/reset%20password%20form.png)
+#### POST /post/<int: id\>/delete
+![photo](Screenshots/postDelete.png)
 
 
