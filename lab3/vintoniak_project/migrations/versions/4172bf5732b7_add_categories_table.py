@@ -36,9 +36,9 @@ def upgrade():
     sa.Column('name', sa.String(length=30), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    with op.batch_alter_table('posts', schema=None, nanaming_convention=naming_convention) as batch_op:
-        batch_op.add_column(sa.Column('category_id', sa.Integer(), nullable=False))
-        batch_op.create_foreign_key(None, 'сategories', ['category_id'], ['id'])
+    with op.batch_alter_table('posts', schema=None) as batch_op:
+        batch_op.add_column(sa.Column('category_id', sa.Integer(), nullable=True))
+        batch_op.create_foreign_key("category", 'сategories', ['category_id'], ['id'])
 
     # ### end Alembic commands ###
 

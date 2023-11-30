@@ -22,8 +22,9 @@ class Post(db.Model):
     postType = db.Column(db.Enum(PostTypes), default="PUBLICATION")
     enabled = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    #category_id = db.Column(db.Integer, db.ForeignKey('сategories.id'), nullable=False)
-    #category = db.relationship('Category', backref=db.backref('posts', lazy=True))
+    
+    category_id = db.Column(db.Integer, db.ForeignKey('сategories.id', name="category"), nullable=True)
+#    category = db.relationship('Category', backref=db.backref('posts', lazy=True))
     
     def __repr__(self):
         return f"id: {self.id} | title: {self.title} | createdAt: \
