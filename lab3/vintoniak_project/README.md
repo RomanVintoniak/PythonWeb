@@ -1,23 +1,38 @@
-# Lab 11
+# Lab 12
 <br>
 
-#### GET: /posts
-![photo](Screenshots/posts.png)
-<br><br>
+#### There are such tests as:
+* SetupTest
+  * test_setup
+  <br>
+* Portfolio Views Tests
+  * test_home_page_loads
+  * test_skills_page_loads
+  * test_certificates_page_loads
+  <br>
+* Authentication Views Tests
+  * test_login_page_loads
+  * test_registration_page_loads
+  <br>
+* Authentication Tests
+  * test_register_user_post
+  * test_login_user_without_remember_me
+  * test_login_user_with_remember_me
+  * test_logout_user
+  <br>
+* Todo Tests
+  * test_todo_create
+  * test_get_all_todo
+  * test_update_todo_complete
+  * test_delete_todo
+  <br>
+* ModelTests
+  * test_user_model
+  * test_todo_model
 
-#### POST: /post/create
-![photo](Screenshots/postCreate.png)
-<br><br>
+<br>
 
-#### GET: /post/<int: id\>
-![photo](Screenshots/postID.png)
-<br><br>
-
-#### POST /post/<int: id\>/update
-![photo](Screenshots/postEdit.png)
-<br><br>
-
-#### POST /post/<int: id\>/delete
-![photo](Screenshots/postDelete.png)
+##### Tests runing
+![photo](Screenshots/tests%20runing.png)
 
 

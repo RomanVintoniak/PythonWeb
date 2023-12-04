@@ -18,7 +18,7 @@ def create_app(config_name: str):
     Migrate(app, db)
     
     login_manager.init_app(app)
-    login_manager.login_view = 'login'
+    login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
     
     with app.app_context():

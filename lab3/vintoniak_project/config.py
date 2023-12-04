@@ -17,7 +17,14 @@ class LocalConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app/data.sqlite')
 
+class TestConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app/test_database.sqlite')
+    WTF_CSRF_ENABLED = False
+
     
 config = {
     'local': LocalConfig,
+    'test': TestConfig
 }
