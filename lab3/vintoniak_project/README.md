@@ -24,13 +24,13 @@
     * test_log_out_user
 
 
-<br>
+<br><br>
 
-##### Tests runing
+#### Tests runing
 ![photo](Screenshots/run%20pytests.png)
 <br>
 
-##### Tests coverage (generated html file)
+#### Tests coverage (generated html file)
 ![photo](Screenshots/tests%20coverage.png)
 
 
