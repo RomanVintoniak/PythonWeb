@@ -30,6 +30,7 @@ def create_app(config_name: str):
         from .cookie.views import cookie_bp
         from .post.views import post
         from .category.views import category
+        from .api import api_bp
         app.register_blueprint(todo)
         app.register_blueprint(feedback)
         app.register_blueprint(portfolio)
@@ -37,6 +38,7 @@ def create_app(config_name: str):
         app.register_blueprint(cookie_bp)
         app.register_blueprint(post)
         app.register_blueprint(category)
+        app.register_blueprint(api_bp)
         
         from app import views
         
