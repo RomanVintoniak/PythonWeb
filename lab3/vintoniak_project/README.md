@@ -1,11 +1,11 @@
 # Lab 13 | API for CRUD Todo
 <br>
 
-<b>GET</b> /todos - get list of todos
-<b>GET</b> /todos/\<id> - get todo information
-<b>POST</b> /todos  - create an  todo
-<b>PUT</b> /todos/<id> - update todo
-<b>DELETE</b> /todos/<id> - delete todo
+<b>GET</b> /todos - get list of todos <br>
+<b>GET</b> /todos/\<id> - get todo information <br>
+<b>POST</b> /todos  - create an  todo <br>
+<b>PUT</b> /todos/<id> - update todo <br>
+<b>DELETE</b> /todos/<id> - delete todo <br>
 
 
 <br><br>
