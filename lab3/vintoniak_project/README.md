@@ -1,38 +1,36 @@
-# Lab 12
+# Lab 12.2 | Pytests
 <br>
 
 #### There are such tests as:
-* SetupTest
-  * test_setup
+* Unit
+  * Test models
+    * test_user_model
+    * test_todo_model
+    * test_post_model
   <br>
-* Portfolio Views Tests
-  * test_home_page_loads
-  * test_skills_page_loads
-  * test_certificates_page_loads
-  <br>
-* Authentication Views Tests
-  * test_login_page_loads
-  * test_registration_page_loads
-  <br>
-* Authentication Tests
-  * test_register_user_post
-  * test_login_user_without_remember_me
-  * test_login_user_with_remember_me
-  * test_logout_user
-  <br>
-* Todo Tests
-  * test_todo_create
-  * test_get_all_todo
-  * test_update_todo_complete
-  * test_delete_todo
-  <br>
-* ModelTests
-  * test_user_model
-  * test_todo_model
+* Functional
+  * Test post views
+    * test_all_posts_page_loads
+    * test_post_create_page_loads
+    * test_post_by_id_page_loads
+    * test_post_edit_page_loads
+  * Test posts
+    * test_get_all_posts
+    * test_delete_post
+  * Test user
+    * test_register_user
+    * test_login_user
+    * test_login_user_with_fixture
+    * test_log_out_user
+
 
 <br>
 
 ##### Tests runing
-![photo](Screenshots/tests%20runing.png)
+![photo](Screenshots/run%20pytests.png)
+<br>
+
+##### Tests coverage (generated html file)
+![photo](Screenshots/tests%20coverage.png)
 
 

@@ -1,3 +1,5 @@
 instance/
 __pycache__/
 lab3env
+.coverage
+.pytest_cache
