@@ -1,6 +1,7 @@
-# Lab 13 | API for CRUD Todo
+# Lab 14 | JWT
 <br>
 
+<b>GET</b> /login - authentication (respons: JWT) <br>
 <b>GET</b> /todos - get list of todos <br>
 <b>GET</b> /todos/\<id> - get todo information <br>
 <b>POST</b> /todos  - create an  todo <br>
@@ -10,25 +11,39 @@
 
 <br><br>
 
-### GET /todos
-![photo](Screenshots/api%20get%20todos.png)
+### GET /login 
+![photo](Screenshots/api_login_jwt.png)
+
 
 <br><br>
 
-### GET /todos/\<id> 
-![photo](Screenshots/api%20get%20todos%20id.png)
+### GET /todos
+![photo](Screenshots/api_get_todos_jwt.png)
+
 
 <br><br>
 
 ### POST /todos
-![photo](Screenshots/api%20post%20todo.png)
+![photo](Screenshots/api_post_todos_jwt.png)
+
 
 <br><br>
 
-### PUT /todos/\<id>
-![photo](Screenshots/api%20put%20todos.png)
+### DELETE /todos/\<id>
+![photo](Screenshots/api_delete_todos_id_jwt.png)
 
-<br><br>
 
-### DELETE /todo/\<id>
-![photo](Screenshots/api%20delete%20todos.png)
+
+<br><br><br>
+
+### Some examples with errors
+![photo](Screenshots/api_todos_id_jwt_error.png)
+
+<br>
+
+![photo](Screenshots/api_get_login_jwt_error.png)
+
+
+
+
+
