@@ -1,47 +1,42 @@
-# Lab 14 | JWT
+# Lab 15 | RESTful API User
 <br>
 
-<b>GET</b> /login - authentication (respons: JWT) <br>
-<b>GET</b> /todos - get list of todos <br>
-<b>GET</b> /todos/\<id> - get todo information <br>
-<b>POST</b> /todos  - create an  todo <br>
-<b>PUT</b> /todos/<id> - update todo <br>
-<b>DELETE</b> /todos/<id> - delete todo <br>
+<b>GET</b> /users - get list of users <br>
+<b>GET</b> /users/\<id> - get user information <br>
+<b>POST</b> /users  - create a user <br>
+<b>PUT</b> /users/<id> - update user information<br>
+<b>DELETE</b> /users/<id> - delete user <br>
+
+<br><br>
+
+### GET /users 
+![photo](Screenshots/api_get_users.png)
 
 
 <br><br>
 
-### GET /login 
-![photo](Screenshots/api_login_jwt.png)
+### GET /users/\<id>
+![photo](Screenshots/api_get_users_id.png)
 
 
 <br><br>
 
-### GET /todos
-![photo](Screenshots/api_get_todos_jwt.png)
+### PUT /users/\<id>
+![photo](Screenshots/api_put_users_id.png)
 
 
 <br><br>
 
-### POST /todos
-![photo](Screenshots/api_post_todos_jwt.png)
-
-
-<br><br>
-
-### DELETE /todos/\<id>
-![photo](Screenshots/api_delete_todos_id_jwt.png)
+### DELETE /users/\<id>
+![photo](Screenshots/api_delete_users_id.png)
 
 
 
 <br><br><br>
 
-### Some examples with errors
-![photo](Screenshots/api_todos_id_jwt_error.png)
+### Swagger
+![photo](Screenshots/users_api_swagger.png)
 
-<br>
-
-![photo](Screenshots/api_get_login_jwt_error.png)
 
 
 
