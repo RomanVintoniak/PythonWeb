@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_swagger_ui import get_swaggerui_blueprint
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
@@ -13,6 +14,16 @@ login_manager = LoginManager()
 basic_auth = HTTPBasicAuth(scheme='Bearer')
 ma = Marshmallow()
 
+SWAGGER_URL = '/api/docs'
+API_URL = '/static/swagger.json'
+
+swaggerui = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Test application"
+    },
+)
 
 def create_app(config_name: str):
     #Construct the core application.
@@ -48,6 +59,7 @@ def create_app(config_name: str):
         app.register_blueprint(category)
         app.register_blueprint(api_bp)
         app.register_blueprint(users_api)
+        app.register_blueprint(swaggerui)
         
         from app import views
         
