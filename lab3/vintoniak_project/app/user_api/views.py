@@ -9,39 +9,30 @@ class UsersApi(Resource):
     
     def get(self):
         users = User.query.all()
-        schema = UserSchema(many=True)
+        schema = UserSchema(many=True, exclude=('password',))
         return {"users": schema.dump(users)}
     
     def post(self):
         schema = UserSchema()
-        data = schema.load(request.json)
+        user = schema.load(request.json)
         
-        username = data.get('username')
-        password = data.get('password')
-        email = data.get('email')
-
-        user = User(username, email, password)
-
         db.session.add(user)
         db.session.commit()
 
-        return {"user": schema.dump(user)}
+        return {"user": schema.dump(user)}, 201
 
 
 class UserApi(Resource):
     
     def get(self, id):
-        schema = UserSchema(partial=True)
-        user = User.query.filter_by(id=id).first()
-        
-        if not user:
-            return {"message": "User not found"}, 404
+        schema = UserSchema(exclude=('password',))
+        user = User.query.filter_by(id=id).first_or_404()
         
         return {"user": schema.dump(user)}
 
     def put(self, id):
-        schema = UserSchema()
-        user = User.query.filter_by(id=id).first()
+        schema = UserSchema(partial=True)
+        user = User.query.filter_by(id=id).first_or_404()
         
         user = schema.load(request.json, instance=user)
         
@@ -51,10 +42,7 @@ class UserApi(Resource):
         return {"user": schema.dump(user)}
         
     def delete(self, id):
-        user = User.query.filter_by(id=id).first()
-       
-        if not user:
-            return {"message": "User not found"}, 404
+        user = User.query.filter_by(id=id).first_or_404()
         
         db.session.delete(user)
         db.session.commit()

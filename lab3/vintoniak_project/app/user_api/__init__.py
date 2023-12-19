@@ -12,4 +12,7 @@ api.add_resource(UserApi, '/users/<int:id>')
 @users_api.errorhandler(ValidationError)
 def handle_marshmallow_error(e):
     return jsonify(e.messages), 400
-    
+
+@users_api.errorhandler(404)
+def handle_not_found_error(e):
+    return jsonify({"message": "User not found"}), 404
