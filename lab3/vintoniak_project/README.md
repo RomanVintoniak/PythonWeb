@@ -21,6 +21,12 @@
 
 <br><br>
 
+### POST /users
+![photo](Screenshots/api_post_user.png)
+
+
+<br><br>
+
 ### PUT /users/\<id>
 ![photo](Screenshots/api_put_users_id.png)
 
@@ -36,6 +42,9 @@
 
 ### Swagger
 ![photo](Screenshots/users_api_swagger.png)
+<br>
+![photo](Screenshots/swagger_get_user_id.png)
+
 
 
 
