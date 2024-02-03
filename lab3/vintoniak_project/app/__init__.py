@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_httpauth import HTTPBasicAuth
 from flask_jwt_extended import JWTManager
 from flask_marshmallow import Marshmallow
+from flask_cors import CORS
 from config import config
 
 
@@ -34,6 +35,7 @@ def create_app(config_name: str):
     ma.init_app(app)
     Migrate(app, db)
     JWTManager(app)
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
     
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
